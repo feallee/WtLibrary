@@ -1,0 +1,3 @@
+TRANSFER
+".\Objects\FsmTiny.obj" 
+TO ".\Objects\FsmTiny.LIB"
