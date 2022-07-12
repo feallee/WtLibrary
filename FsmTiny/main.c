@@ -7,7 +7,7 @@
 
 #define MP3	"国歌.mp3"
 
-//步骤2：声明所有状态函数。
+//步骤2：声明所有状态函数（表示状态机的状态集）。
 static void* StopState(size_t  eventArgs);
 static void* PlayState(size_t  eventArgs);
 static void* PauseState(size_t  eventArgs);
