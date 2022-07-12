@@ -14,10 +14,9 @@ Powered by feallee@hotmail.com at #2022/06/17#.
 /// 表示状态机的状态。
 /// 注意：禁止在状态中调用函数 FsmTiny_Start 和 FsmTiny_Transit，否则会出现不可预料的异常。
 /// </summary>
-/// <param name="eventType">状态关联的事件类型。</param>
-/// <param name="eventArgs">状态关联的事件参数。</param>
-/// <returns>返回新的状态，状态机会切换到新的状态。如果返回 NULL 状态机保持在当前状态。</returns>
-typedef void* (*FsmTinyState)(size_t eventType, void* eventArgs);
+/// <param name="eventArgs">状态关联的事件参数。如果有更多的关联的事件参数，可以使用全局变量进行传递。</param>
+/// <returns>返回新的状态，状态机将切换到新的状态。如果返回 NULL 状态机保持在当前状态。</returns>
+typedef void* (*FsmTinyState)(size_t eventArgs);
 /// <summary>
 /// 启动一个新的状态机并返回其实例。
 /// </summary>
@@ -34,12 +33,11 @@ FsmTinyState FsmTiny_GetCurrent(void* fsmTiny);
 /// 执行状态转换（在事件发生时调用）。
 /// </summary>
 /// <param name="fsmTiny">状态机实例。</param>
-/// <param name="eventType">状态关联的事件类型。</param>
-/// <param name="eventArgs">状态关联的事件参数。</param>
+/// <param name="eventArgs">状态关联的事件参数。如果有更多的关联的事件参数，可以使用全局变量进行传递。</param>
 /// <returns>返回状态转换成功标志。0=失败（状态机实例为 NULL），1=成功。</returns>
-unsigned char FsmTiny_Transit(void* fsmTiny, size_t eventType, void* eventArgs);
+unsigned char FsmTiny_Transit(void* fsmTiny, size_t eventArgs);
 /// <summary>
-/// 释放状态机实例占用的资源。
+/// 停止状态机实例。
 /// </summary>
 /// <param name="fsmTiny">状态机实例。</param>
 void FsmTiny_Stop(void* fsmTiny);

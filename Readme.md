@@ -9,6 +9,7 @@
 # 开发环境：
 - Microsoft Visual Studio Community 2022 (64 位)
 - Microsoft Visual C++ 2022（纯 C 模式）
+- Keil uVision V5.27.1.0(C51 9.60a)
 
 # 获取
 

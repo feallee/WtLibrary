@@ -38,14 +38,14 @@ FsmTinyState FsmTiny_GetCurrent(void* fsmTiny)
 	return r;
 }
 
-unsigned char FsmTiny_Transit(void* fsmTiny, size_t eventType, void* eventArgs)
+unsigned char FsmTiny_Transit(void* fsmTiny, size_t eventArgs)
 {
 	unsigned char r = 0;
 	struct FsmTiny* fsm;
 	FsmTinyState state;
 	if (fsm = fsmTiny)
 	{
-		if (state = fsm->Current(eventType, eventArgs))
+		if (state = fsm->Current(eventArgs))
 		{
 			fsm->Current = state;
 		}
