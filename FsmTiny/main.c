@@ -8,12 +8,12 @@
 #define MP3	"国歌.mp3"
 
 //步骤2：声明所有状态函数（表示状态机的状态集）。
-static void* StopState(size_t  eventArgs);
-static void* PlayState(size_t  eventArgs);
-static void* PauseState(size_t  eventArgs);
+static void* StopState(size_t eventArgs);
+static void* PlayState(size_t eventArgs);
+static void* PauseState(size_t eventArgs);
 
 //步骤3：定义所有状态函数。
-static void* StopState(size_t  eventArgs)
+static void* StopState(size_t eventArgs)
 {
 	printf("\n停止状态:接收到命令=%c\n", (char)eventArgs);
 	if (eventArgs == 'p')
@@ -27,7 +27,7 @@ static void* StopState(size_t  eventArgs)
 	}
 }
 
-static void* PlayState(size_t  eventArgs)
+static void* PlayState(size_t eventArgs)
 {
 	printf("\n播放状态:接收到命令=%c\n", (char)eventArgs);
 	if (eventArgs == 'p')
@@ -46,7 +46,7 @@ static void* PlayState(size_t  eventArgs)
 	}
 }
 
-static void* PauseState(size_t  eventArgs)
+static void* PauseState(size_t eventArgs)
 {
 	printf("\n暂停状态:接收到命令=%c\n", (char)eventArgs);
 	if (eventArgs == 'p')

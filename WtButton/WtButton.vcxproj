@@ -127,13 +127,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\FsmTiny\FsmTiny.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="WtButton.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\FsmTiny\FsmTiny.h" />
     <ClInclude Include="WtButton.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="按键状态图.vsdx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
