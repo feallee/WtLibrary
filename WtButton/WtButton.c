@@ -25,7 +25,6 @@ static void* DownState(struct Node* node);
 static void* HoldState(struct Node* node);
 static void* UpState(struct Node* node);
 static void* WaitState(struct Node* node);
-
 static void* Down1State(struct Node* node);
 
 static void* ReadyState(struct Node* node)
@@ -157,13 +156,13 @@ unsigned char WtButton_Regist(unsigned char holdTicks, unsigned char repeatTicks
 void WtButton_Scan(void)
 {
 	struct Node* node;
-	State next;
+	State current;
 	node = Head;
 	while (node)
 	{
-		if (next = node->Current(node))//×´Ì¬×ª»»
+		if (current = node->Current(node))//×´Ì¬×ª»»
 		{
-			node->Current = next;
+			node->Current = current;
 		}
 		node = node->Next;
 	}

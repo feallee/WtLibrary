@@ -12,7 +12,7 @@ typedef enum
 	/// <summary>
 	/// 按键保持按下。
 	/// </summary>
-	WtButton_Hold,	
+	WtButton_Hold=1,	
 	/// <summary>
 	/// 按键重复按下。
 	/// </summary>
@@ -34,9 +34,9 @@ typedef void(*WtButton_Report)(WtButton_Event event, unsigned char count);
 /// 注册一个按键。
 /// </summary>
 /// <param name="holdTicks">按键在保持按下时产生事件回调频度，单位为按键扫描周期。默认值：10</param>
-/// <param name="repeatTicks">判断按键重复按下的时间依据，单位为按键扫描周期。默认值：10</param>
+/// <param name="repeatTicks">判断按键重复按下的时间依据，单位为按键扫描周期。默认值：50</param>
 /// <param name="getValue">获取按键键值回调函数。在使用时必须自行实现。不允许为 NULL。</param>
-/// <param name="callback">按键事件报告回调函数。不允许为 NULL。</param>
+/// <param name="report">按键事件报告回调函数。不允许为 NULL。</param>
 /// <returns>注册成功标志。0=失败，1=成功。</returns>
 unsigned char WtButton_Regist(unsigned char holdTicks, unsigned char repeatTicks, WtButton_GetValue getValue, WtButton_Report report);
 /// <summary>
