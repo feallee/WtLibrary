@@ -2,120 +2,154 @@
 #include <stddef.h>
 #include "WtButton.h"
 
+typedef void* (*State)(struct Node* node);
+
 static struct Node
 {
 	unsigned char HoldTicks;
 	unsigned char RepeatTicks;
 	WtButton_GetValue GetValue;
-	WtButton_Callback Callback;
+	WtButton_Report Report;
 
 	unsigned char Time;
 	unsigned char HoldCount;
 	unsigned char RepeatCount;
 
-	unsigned char State;
+	State Current;
 
 	struct Node* Next;
 }*Head = NULL;
 
-static void ReadyState(struct Node* node)
+static void* ReadyState(struct Node* node);
+static void* DownState(struct Node* node);
+static void* HoldState(struct Node* node);
+static void* UpState(struct Node* node);
+static void* WaitState(struct Node* node);
+
+static void* Down1State(struct Node* node);
+
+static void* ReadyState(struct Node* node)
 {
 	if (node->GetValue())
 	{
-		node->State = 1;
+		node->RepeatCount = 0;
+		return DownState;
+	}
+	else
+	{
+		return NULL;
 	}
 }
 
-static void DownAcceptState(struct Node* node)
+static void* DownState(struct Node* node)
 {
 	if (node->GetValue())
 	{
 		node->HoldCount = 0;
 		node->Time = 0;
-		node->Callback(WtButton_Down, 1);
-		node->State = 2;
+		node->Report(WtButton_Hold, node->HoldCount++);
+		return HoldState;
 	}
 	else
 	{
-		node->RepeatCount = 0;
-		node->State = 0;
+		return ReadyState;
 	}
 }
 
-static void HoldState(struct Node* node)
+static void* HoldState(struct Node* node)
 {
 	node->Time++;
 	if (node->GetValue())
 	{
 		if (node->Time % node->HoldTicks == 0)
 		{
-			node->Callback(WtButton_Hold, node->HoldCount++);
+			node->Report(WtButton_Hold, node->HoldCount++);
 		}
+		return NULL;
 	}
 	else
 	{
-		node->State = 3;
+		return UpState;
 	}
 }
-static void UpAcceptState(struct Node* node)
+static void* UpState(struct Node* node)
 {
+	node->Time++;
 	if (node->GetValue())
 	{
-		if (node->Time++ % node->HoldTicks == 0)
+		if (node->Time % node->HoldTicks == 0)
 		{
-			node->Callback(WtButton_Hold, node->HoldCount++);
+			node->Report(WtButton_Hold, node->HoldCount++);
 		}
-		node->State = 2;
+		return HoldState;
 	}
 	else
 	{
 		node->Time = 0;
-		node->Callback(WtButton_Up, 1);
-		node->State = 4;
+		node->Report(WtButton_Repeat, node->RepeatCount++);
+		return WaitState;
 	}
 }
 
-static void WaitState(struct Node* node)
+static void* WaitState(struct Node* node)
 {
 	if (node->Time++ < node->RepeatTicks)
 	{
 		if (node->GetValue())
 		{
-			if (node->RepeatCount)
-			{
-				node->Callback(WtButton_Repeat, node->RepeatCount);
-			}
-			node->RepeatCount++;
+			return	Down1State;
+		}
+		else
+		{
+			return NULL;
 		}
 	}
 	else
 	{
-		node->RepeatCount = 0;
-		node->State = 0;
+		return ReadyState;
 	}
 }
 
-unsigned char WtButton_Regist(unsigned char holdTicks, unsigned char repeatTicks, WtButton_GetValue getValue, WtButton_Callback callback)
+static void* Down1State(struct Node* node)
+{
+	node->Time++;
+	if (node->GetValue())
+	{
+		node->HoldCount = 0;
+		node->Time = 0;
+		node->Report(WtButton_Hold, node->HoldCount++);
+		return HoldState;
+	}
+	else
+	{
+		return WaitState;
+	}
+}
+
+unsigned char WtButton_Regist(unsigned char holdTicks, unsigned char repeatTicks, WtButton_GetValue getValue, WtButton_Report report)
 {
 	unsigned char r = 0;
 	struct Node* node;
-	if (node = malloc(sizeof(struct Node)))
+	if (getValue && report)
 	{
-		if (holdTicks == 0) { holdTicks = 10; }
-		if (repeatTicks == 0) { holdTicks = 50; }
-		node->HoldTicks = holdTicks;
-		node->RepeatTicks = repeatTicks;
-		node->GetValue = getValue;
-		node->Callback = callback;
+		if (node = malloc(sizeof(struct Node)))
+		{
+			if (holdTicks == 0) { holdTicks = 10; }
+			if (repeatTicks == 0) { repeatTicks = 50; }
+			node->HoldTicks = holdTicks;
+			node->RepeatTicks = repeatTicks;
+			node->GetValue = getValue;
+			node->Report = report;
 
-		node->Time = 0;
-		node->HoldCount = 0;
-		node->RepeatCount = 0;
+			/*node->Time = 0;
+			node->HoldCount = 0;
+			node->RepeatCount = 0;*/
 
-		node->State = 0;
+			node->Current = ReadyState;
 
-		node->Next = Head;
-		Head = node;
+			node->Next = Head;
+			Head = node;
+		}
 	}
 	return r;
 }
@@ -123,31 +157,13 @@ unsigned char WtButton_Regist(unsigned char holdTicks, unsigned char repeatTicks
 void WtButton_Scan(void)
 {
 	struct Node* node;
+	State next;
 	node = Head;
 	while (node)
 	{
-		if (node->GetValue && node->Callback)
+		if (next = node->Current(node))//×´Ì¬×ª»»
 		{
-			if (node->State == 0)
-			{
-				ReadyState(node);
-			}
-			else if (node->State == 1)
-			{
-				DownAcceptState(node);
-			}
-			else if (node->State == 2)
-			{
-				HoldState(node);
-			}
-			else if (node->State == 3)
-			{
-				UpAcceptState(node);
-			}
-			else if (node->State == 4)
-			{
-				WaitState(node);
-			}
+			node->Current = next;
 		}
 		node = node->Next;
 	}

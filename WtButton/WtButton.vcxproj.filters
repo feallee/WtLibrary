@@ -29,5 +29,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="按键状态图.vsdx" />
+    <None Include="Readme.md" />
   </ItemGroup>
 </Project>
