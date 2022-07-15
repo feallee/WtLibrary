@@ -135,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Readme.md" />
+    <None Include="按键状态图.pdf" />
     <None Include="按键状态图.vsdx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
