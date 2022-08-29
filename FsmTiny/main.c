@@ -63,18 +63,17 @@ int main(void)
 		//步骤5：在事件中触发状态转换。
 		while (1)
 		{
-			printf("\n请输入命令：\n");
-			key = tolower(getch());//获取按键键值（此函数在Windows和VC下有效，其它环境没有测试过）
-						
+			printf("\n当前状态：%lu,请输入命令：\n", (unsigned char)FsmTiny_GetCurrent(machine));			
+			key = tolower(getch());//获取按键键值（此函数在Windows和VC下有效，其它环境没有测试过）			
 			if (key == 'p')
-			{
+			{			
 				//设置状态机上下文
 				Context.FileIndex = 3;
 				r = FsmTiny_Transit(machine, PlayPauseEvent);
 				printf("状态转换成功标志：%hu\n", r);
 			}
 			else if (key == 's')
-			{
+			{				
 				r = FsmTiny_Transit(machine, StopEvent);
 				printf("状态转换成功标志：%hu\n", r);
 			}

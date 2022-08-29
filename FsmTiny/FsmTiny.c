@@ -47,6 +47,17 @@ unsigned char FsmTiny_Transit(FsmTiny_Machine machine, FsmTiny_Event event)
 	return r;
 }
 
+FsmTiny_State FsmTiny_GetCurrent(FsmTiny_Machine machine)
+{
+	FsmTiny_State r = UnknowState;
+	struct Machine* m;
+	if (m = machine)
+	{
+		r = m->Current;
+	}
+	return r;	
+}
+
 void FsmTiny_Stop(FsmTiny_Machine machine)
 {
 	free(machine);

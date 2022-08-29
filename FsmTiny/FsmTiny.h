@@ -16,9 +16,12 @@ Powered by feallee@hotmail.com at #2022/06/17#.
 /// </summary>
 typedef enum
 {
+	UnknowState = 0xFF,//未知状态，固定，不允许更改。
+	//在这里自定义事件。
 	PlayState,
 	PauseState,
-	StopState
+	StopState,
+	
 }FsmTiny_State;
 
 /// <summary>
@@ -26,6 +29,7 @@ typedef enum
 /// </summary>
 typedef enum
 {
+	//在这里自定义事件。
 	PlayPauseEvent,
 	StopEvent
 }FsmTiny_Event;
@@ -69,8 +73,16 @@ FsmTiny_Machine FsmTiny_Start(FsmTiny_Transition* transitions, size_t length, Fs
 unsigned char FsmTiny_Transit(FsmTiny_Machine machine, FsmTiny_Event event);
 
 /// <summary>
+/// 获取当前状态。
+/// </summary>
+/// <param name="machine">状态机实例。</param>
+/// <returns>返回当前状态。如果获取失败，返回 UnknowState。</returns>
+FsmTiny_State FsmTiny_GetCurrent(FsmTiny_Machine machine);
+
+/// <summary>
 /// 停止并释放状态机实例。
 /// </summary>
+/// <param name="machine">状态机实例。</param>
 void FsmTiny_Stop(FsmTiny_Machine machine);
 
 #endif
