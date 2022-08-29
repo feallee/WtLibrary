@@ -1,60 +1,55 @@
 #include <stdlib.h>
 #include "FsmTiny.h"
 
-struct FsmTiny
+struct Machine
 {
-	FsmTinyState Current;
+	FsmTiny_Transition* Transitions;
+	size_t Length;
+	FsmTiny_State Current;
 };
 
-void* FsmTiny_Start(FsmTinyState initialState)
+FsmTiny_Machine FsmTiny_Start(FsmTiny_Transition* transitions, size_t length, FsmTiny_State initialState)
 {
-	struct FsmTiny* fsm;
-	if (initialState)
+	struct Machine* m = NULL;
+	if (transitions && initialState)
 	{
-		if (fsm = malloc(sizeof(struct FsmTiny)))
+		if (m = malloc(sizeof(struct Machine)))
 		{
-			fsm->Current = initialState;
+			m->Transitions = transitions;
+			m->Length = length;
+			m->Current = initialState;
 		}
 	}
-	else
-	{
-		fsm = NULL;
-	}
-	return fsm;
+	return m;
 }
 
-FsmTinyState FsmTiny_GetCurrent(void* fsmTiny)
+unsigned char FsmTiny_Transit(FsmTiny_Machine machine, FsmTiny_Event event)
 {
-	FsmTinyState r;
-	struct FsmTiny* fsm;
-	if (fsm = fsmTiny)
+	unsigned char r=0;
+	size_t i;
+	struct Machine* m;
+	if (m = machine)
 	{
-		r = fsm->Current;
-	}
-	else
-	{
-		r = NULL;
+		for (i = 0; i < m->Length; i++)
+		{
+			if (m->Transitions[i].State == m->Current && m->Transitions[i].Event == event)
+			{
+				r = 1;
+				m->Current = m->Transitions[i].Next;
+				if (m->Transitions[i].Action)
+				{
+					m->Transitions[i].Action();
+				}				
+				break;
+			}
+		}
 	}
 	return r;
 }
 
-unsigned char FsmTiny_Transit(void* fsmTiny, size_t eventArgs)
+void FsmTiny_Stop(FsmTiny_Machine machine)
 {
-	unsigned char r = 0;
-	struct FsmTiny* fsm;
-	FsmTinyState state;
-	if (fsm = fsmTiny)
-	{
-		if (state = fsm->Current(eventArgs))
-		{
-			fsm->Current = state;
-		}
-		r = 1;
-	}
-	return r;
+	free(machine);
 }
 
-void FsmTiny_Stop(void* fsmTiny)
-{
-	free(fsmTiny);
-}
+

@@ -9,36 +9,68 @@ Powered by feallee@hotmail.com at #2022/06/17#.
 /// <summary>
 /// 状态机库函数（精简）版本号。
 /// </summary>
-#define FSMTNY_VERSION	11
+#define FSMTNY_VERSION	12
+
 /// <summary>
-/// 表示状态机的状态。
-/// 注意：禁止在状态中调用函数 FsmTiny_Start 和 FsmTiny_Transit，否则会出现不可预料的异常。
+/// 状态类型。其中字段可以自定义。
 /// </summary>
-/// <param name="eventArgs">状态关联的事件参数。如果有更多的关联的事件参数，可以使用全局变量进行传递。</param>
-/// <returns>返回新的状态，状态机将切换到新的状态。如果返回 NULL 状态机保持在当前状态。</returns>
-typedef void* (*FsmTinyState)(size_t eventArgs);
+typedef enum
+{
+	PlayState,
+	PauseState,
+	StopState
+}FsmTiny_State;
+
 /// <summary>
-/// 启动一个新的状态机并返回其实例。
+/// 事件类型。其中字段可以自定义。
 /// </summary>
-/// <param name="initialState">起始状态。不允许为 NULL。</param>
-/// <returns>返回状态机实例。如果启动失败，返回 NULL。</returns>
-void* FsmTiny_Start(FsmTinyState initialState);
+typedef enum
+{
+	PlayPauseEvent,
+	StopEvent
+}FsmTiny_Event;
+
 /// <summary>
-/// 获取状态机实例的当前状态。
+/// 动作类型。
 /// </summary>
-/// <param name="fsmTiny">状态机实例。</param>
-/// <returns>返回状态机实例的当前状态。如果状态机为 NULL，返回 NULL。</returns>
-FsmTinyState FsmTiny_GetCurrent(void* fsmTiny);
+typedef void (*FsmTiny_Action)(void);
+
+/// <summary>
+/// 状态转换类型。表示在当前状态 State 下，发生事件 Event 时，状态机将转换到下一状态 Next，并执行动作 Action。
+/// 如果没有动作，设置 Action 为 NULL。
+/// </summary>
+typedef struct
+{	
+	FsmTiny_State State;	
+	FsmTiny_Event Event;
+	FsmTiny_State Next;
+	FsmTiny_Action Action;
+}FsmTiny_Transition;
+
+/// <summary>
+/// 状态机类型。
+/// </summary>
+typedef void* FsmTiny_Machine;
+
+/// <summary>
+/// 创建并启动一个新的状态机实例。
+/// </summary>
+/// <param name="transitions">状态转换表。</param>
+/// <param name="length">状态转换表数量。</param>
+/// <param name="initialState">起始状态。</param>
+/// <returns>返回一个新的状态机实例。如果创建失败，返回 NULL。</returns>
+FsmTiny_Machine FsmTiny_Start(FsmTiny_Transition* transitions, size_t length, FsmTiny_State initialState);
+
 /// <summary>
 /// 执行状态转换（在事件发生时调用）。
 /// </summary>
-/// <param name="fsmTiny">状态机实例。</param>
-/// <param name="eventArgs">状态关联的事件参数。如果有更多的关联的事件参数，可以使用全局变量进行传递。</param>
-/// <returns>返回状态转换成功标志。0=失败（状态机实例为 NULL），1=成功。</returns>
-unsigned char FsmTiny_Transit(void* fsmTiny, size_t eventArgs);
+/// <param name="machine">状态机实例。</param>
+/// <returns>返回状态转换成功标志。0=失败（状态机实例为 NULL 和没有定义事件 event），1=成功。</returns>
+unsigned char FsmTiny_Transit(FsmTiny_Machine machine, FsmTiny_Event event);
+
 /// <summary>
-/// 停止状态机实例。
+/// 停止并释放状态机实例。
 /// </summary>
-/// <param name="fsmTiny">状态机实例。</param>
-void FsmTiny_Stop(void* fsmTiny);
+void FsmTiny_Stop(FsmTiny_Machine machine);
+
 #endif

@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{759d1b6a-8832-414f-ae87-ebbd9b2068ee}</ProjectGuid>
-    <RootNamespace>WtButton</RootNamespace>
+    <ProjectGuid>{60f8b691-7965-43f9-8669-0e4db7a66c44}</ProjectGuid>
+    <RootNamespace>Color</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -104,7 +104,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard_C>stdc11</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,16 +127,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.c" />
-    <ClCompile Include="WtButton.c" />
+    <ClCompile Include="Color.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="WtButton.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Readme.md" />
-    <None Include="按键状态图.pdf" />
-    <None Include="按键状态图.vsdx" />
+    <ClInclude Include="Color.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

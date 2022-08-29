@@ -4,7 +4,7 @@
 #include <ctype.h>
 #include "windows.h"
 #include "winbase.h"
-
+#include <threads.h>
 #include "WtButton.h"
 
 static unsigned char AValue = 0;
