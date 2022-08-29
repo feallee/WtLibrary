@@ -6,6 +6,8 @@
 - 按键：WtButton
 - 灯控：WtLamp
 - 十六进制转换：Hex
+- ...
+- 由于本人平时需要工作，是利用空闲时间维护本库，会不定期更新。
 # 开发环境：
 - Microsoft Visual Studio Community 2022 (64 位)
 - Microsoft Visual C++ 2022（纯 C 模式）
