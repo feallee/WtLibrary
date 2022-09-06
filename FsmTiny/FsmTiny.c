@@ -4,61 +4,75 @@
 struct Machine
 {
 	FsmTiny_Transition* Transitions;
-	size_t Length;
+	unsigned char Length;
 	FsmTiny_State Current;
+	FsmTiny_State Final;
 };
 
-FsmTiny_Machine FsmTiny_Start(FsmTiny_Transition* transitions, size_t length, FsmTiny_State initialState)
+FsmTiny_Type FsmTiny_Start(FsmTiny_Transition* transitions, unsigned char length, FsmTiny_State initialState, FsmTiny_State finalState)
 {
 	struct Machine* m = NULL;
-	if (transitions && initialState)
+	if (transitions)
 	{
 		if (m = malloc(sizeof(struct Machine)))
 		{
 			m->Transitions = transitions;
 			m->Length = length;
 			m->Current = initialState;
+			m->Final = finalState;
 		}
 	}
 	return m;
 }
 
-unsigned char FsmTiny_Transit(FsmTiny_Machine machine, FsmTiny_Event event)
+unsigned char FsmTiny_Transit(FsmTiny_Type machine, FsmTiny_Event event, void* args)
 {
-	unsigned char r=0;
-	size_t i;
+	unsigned char r;
+	unsigned char i;
 	struct Machine* m;
 	if (m = machine)
 	{
-		for (i = 0; i < m->Length; i++)
+		if (m->Current == m->Final)
 		{
-			if (m->Transitions[i].State == m->Current && m->Transitions[i].Event == event)
+			r = FSMTNY_TRANSIT_FINAL;
+		}
+		else
+		{
+			r = FSMTNY_TRANSIT_UNDEFINED;
+			for (i = 0; i < m->Length; i++)
 			{
-				r = 1;
-				m->Current = m->Transitions[i].Next;
-				if (m->Transitions[i].Action)
+				if (m->Transitions[i].State == m->Current && m->Transitions[i].Event == event)
 				{
-					m->Transitions[i].Action();
-				}				
-				break;
+					r = FSMTNY_TRANSIT_SUCCESS;
+					if (m->Transitions[i].Action)
+					{
+						m->Transitions[i].Action(args);
+					}
+					m->Current = m->Transitions[i].Next;
+					break;
+				}
 			}
 		}
+	}
+	else
+	{
+		r = FSMTNY_TRANSIT_UNKNOW;
 	}
 	return r;
 }
 
-FsmTiny_State FsmTiny_GetCurrent(FsmTiny_Machine machine)
+FsmTiny_State FsmTiny_GetCurrent(FsmTiny_Type machine)
 {
-	FsmTiny_State r = UnknowState;
+	FsmTiny_State r = FSMTINY_STATE_UNKNOW;
 	struct Machine* m;
 	if (m = machine)
 	{
 		r = m->Current;
 	}
-	return r;	
+	return r;
 }
 
-void FsmTiny_Stop(FsmTiny_Machine machine)
+void FsmTiny_Stop(FsmTiny_Type machine)
 {
 	free(machine);
 }
