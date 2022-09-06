@@ -12,9 +12,10 @@ static DWORD WINAPI ThreadProc(LPVOID lpParameter)
 	char ch;
 	while (1)
 	{
-		ch = tolower(getch());
+		ch = tolower(getch());//在Windows和VC下有效，其它环境需要更换库函数。
 		if (ch == 'a') AValue = 1;
 		else if (ch == 's') AValue = 0;
+		else if (ch == 'x') AValue = 2;
 	}
 }
 
@@ -35,18 +36,23 @@ int main(void)
 	DWORD PidChildP;
 	CreateThread(NULL, 0, ThreadProc, 0, 0, &PidChildP);//在Windows和VC下有效，其它环境需要更换库函数。
 
-	if (bt = WtButton_Create(0, 50, Button_Hold, Button_Repeat))
+	if (bt = WtButton_Create('A', 30, Button_Hold, Button_Repeat))
 	{
 		printf("本例程演示按键扫描库函数的使用。支持的命令：\n");
 		printf("A = 模拟按键按下。\n");
 		printf("S = 模拟按键抬起。\n");
+		printf("X = 退出。\n");
 		//键盘扫描	
-		while (1)
+		while (AValue < 2)
 		{
 			WtButton_Scan(bt, AValue);
 			Sleep(10);//推荐扫描周期10ms
 		}
 		WtButton_Dispose(bt);
+	}
+	else
+	{
+		printf("内存不足！！！");
 	}
 	return 0;
 }
