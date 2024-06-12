@@ -1,0 +1,28 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "WtLibrary_qemu",
+            "type": "cppdbg",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "setupCommands": [
+                {
+                    "text": "cd ${workspaceRoot}"
+                },
+                {
+                    "text": "file rtthread.elf"
+                },
+                {
+                    "text": "break main"
+                }
+            ],
+            "program": "${workspaceRoot}\\rtthread.elf",
+            "MIMode": "gdb",
+            "miDebuggerPath": "C:/RT-ThreadStudio/repo/Extract/ToolChain_Support_Packages/ARM/GNU_Tools_for_ARM_Embedded_Processors/5.4.1/bin/arm-none-eabi-gdb.exe",
+            "miDebuggerServerAddress": "localhost:1234",
+            "servertype": "qemu"
+        }
+    ],
+    "enable": true
+}

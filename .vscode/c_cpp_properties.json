@@ -1,0 +1,53 @@
+{
+    "configurations": [
+        {
+            "intelliSenseMode": "clang-x64",
+            "name": "Win32",
+            "cppStandard": "c++11",
+            "cStandard": "c99",
+            "compilerPath": "C:/RT-ThreadStudio/platform/env_released/env/tools/gnu_gcc/arm_gcc/mingw/bin/arm-none-eabi-gcc",
+            "includePath": [
+                "C:/Projects/WtLibrary",
+                "C:/Projects/WtLibrary/applications",
+                "C:/Projects/WtLibrary/drivers",
+                "C:/Projects/WtLibrary/rt-thread/components/cplusplus",
+                "C:/Projects/WtLibrary/rt-thread/components/dfs/filesystems/devfs",
+                "C:/Projects/WtLibrary/rt-thread/components/dfs/filesystems/elmfat",
+                "C:/Projects/WtLibrary/rt-thread/components/dfs/filesystems/ramfs",
+                "C:/Projects/WtLibrary/rt-thread/components/dfs/filesystems/romfs",
+                "C:/Projects/WtLibrary/rt-thread/components/dfs/include",
+                "C:/Projects/WtLibrary/rt-thread/components/drivers/include",
+                "C:/Projects/WtLibrary/rt-thread/components/drivers/spi",
+                "C:/Projects/WtLibrary/rt-thread/components/drivers/spi/sfud/inc",
+                "C:/Projects/WtLibrary/rt-thread/components/finsh",
+                "C:/Projects/WtLibrary/rt-thread/components/libc/aio",
+                "C:/Projects/WtLibrary/rt-thread/components/libc/compilers/newlib",
+                "C:/Projects/WtLibrary/rt-thread/components/libc/mmap",
+                "C:/Projects/WtLibrary/rt-thread/components/libc/pthreads",
+                "C:/Projects/WtLibrary/rt-thread/components/libc/signal",
+                "C:/Projects/WtLibrary/rt-thread/components/libc/termios",
+                "C:/Projects/WtLibrary/rt-thread/components/libc/time",
+                "C:/Projects/WtLibrary/rt-thread/components/lwp",
+                "C:/Projects/WtLibrary/rt-thread/components/net/lwip-2.0.2/src",
+                "C:/Projects/WtLibrary/rt-thread/components/net/lwip-2.0.2/src/arch/include",
+                "C:/Projects/WtLibrary/rt-thread/components/net/lwip-2.0.2/src/include",
+                "C:/Projects/WtLibrary/rt-thread/components/net/lwip-2.0.2/src/include/ipv4",
+                "C:/Projects/WtLibrary/rt-thread/components/net/lwip-2.0.2/src/include/netif",
+                "C:/Projects/WtLibrary/rt-thread/components/net/netdev/include",
+                "C:/Projects/WtLibrary/rt-thread/components/net/sal_socket/impl",
+                "C:/Projects/WtLibrary/rt-thread/components/net/sal_socket/include",
+                "C:/Projects/WtLibrary/rt-thread/components/net/sal_socket/include/dfs_net",
+                "C:/Projects/WtLibrary/rt-thread/components/net/sal_socket/include/socket",
+                "C:/Projects/WtLibrary/rt-thread/components/net/sal_socket/include/socket/sys_socket",
+                "C:/Projects/WtLibrary/rt-thread/include",
+                "C:/Projects/WtLibrary/rt-thread/libcpu/arm/common",
+                "C:/Projects/WtLibrary/rt-thread/libcpu/arm/cortex-a"
+            ],
+            "defines": [
+                "HAVE_CCONFIG_H",
+                "RT_USING_NEWLIB"
+            ]
+        }
+    ],
+    "version": 4
+}

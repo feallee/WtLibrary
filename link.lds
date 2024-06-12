@@ -39,6 +39,9 @@ SECTIONS
         __rt_init_start = .;
         KEEP(*(SORT(.rti_fn*)))
         __rt_init_end = .;
+
+        /* section entry */        
+        KEEP(*(SORT(.WtEntry.*)))
     } =0
     __text_end = .;
 
