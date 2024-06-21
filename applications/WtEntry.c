@@ -10,7 +10,7 @@ __attribute__((used, __section__(".WtEntry.70"))) const static WtEntry_Type mWtE
 __attribute__((used, __section__(".WtEntry.80"))) const static WtEntry_Type mWtEntry8;
 __attribute__((used, __section__(".WtEntry.90"))) const static WtEntry_Type mWtEntry9;
 
-int WtEntry_Execute(WtEntry_GroupType group, const char *name, uint32_t executer, void *parameter)
+int WtEntry_Execute(WtEntry_GroupType group, const char *name, int sender, void *parameter)
 {
     int cnt = 0;
     const WtEntry_Type *b;
@@ -81,7 +81,7 @@ int WtEntry_Execute(WtEntry_GroupType group, const char *name, uint32_t executer
                 {
                     if (b->Action)
                     {
-                        b->Action(executer, parameter);
+                        b->Action(sender, parameter);
                     }
                     cnt++;
                 }
@@ -91,7 +91,7 @@ int WtEntry_Execute(WtEntry_GroupType group, const char *name, uint32_t executer
         {
             if (b->Action)
             {
-                b->Action(executer, parameter);
+                b->Action(sender, parameter);
             }
             cnt++;
         }

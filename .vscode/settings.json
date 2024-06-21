@@ -7,5 +7,8 @@
     "RTT_Studio.Debuger.stlinkGdbServerExecutable": "C:/RT-ThreadStudio/repo/Extract/Debugger_Support_Packages/STMicroelectronics/ST-LINK_Debugger/1.6.0",
     "RTT_Studio.Debuger.QEMU.Location": "C:/RT-ThreadStudio/repo/Extract/Debugger_Support_Packages/RealThread/QEMU/4.2.0.4",
     "RTT_Studio.Debuger.Adapter": "QEMU",
-    "RTT_Studio.Debuger.Executable_File": "rtthread.elf"
+    "RTT_Studio.Debuger.Executable_File": "rtthread.elf",
+    "files.associations": {
+        "math.h": "c"
+    }
 }
