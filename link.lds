@@ -42,6 +42,7 @@ SECTIONS
 
         /* section entry */        
         KEEP(*(SORT(.WtEntry.*)))
+        KEEP(*(SORT(.WtCommand.*)))
     } =0
     __text_end = .;
 

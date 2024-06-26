@@ -9,6 +9,7 @@
     "RTT_Studio.Debuger.Adapter": "QEMU",
     "RTT_Studio.Debuger.Executable_File": "rtthread.elf",
     "files.associations": {
-        "math.h": "c"
+        "math.h": "c",
+        "typeinfo": "cpp"
     }
 }

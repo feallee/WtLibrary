@@ -3,7 +3,7 @@
 
 void WtGSensor_ComputePitchRoll(double x, double y, double z, double *pitch, double *roll)
 {
-    // ��һ��gsensor���ݣ�������ݲ��ǵ�λ������
+    // 归一化gsensor数据（如果数据不是单位向量）
     double norm = sqrt(x * x + y * y + z * z);
     if (norm > 0.0)
     {
@@ -12,12 +12,12 @@ void WtGSensor_ComputePitchRoll(double x, double y, double z, double *pitch, dou
         z /= norm;
     }
 
-    // ���㸩���Ǻͷ����ǣ��Ի���Ϊ��λ��
-    // ����z���Ǵ�ֱ������ֵ���ϣ���x�����豸���ȷ���y�����豸ǰ����
-    *pitch = atan2(-y, sqrt(x * x + z * z)); // �豸����y����ת�ĽǶȡ�ע�⣺����ʹ��-y����Ϊͨ��z������ʱy����ǰ�Ǹ�ֵ
-    *roll = atan2(x, z);                     // �豸����x����ת�ĽǶȡ�
+    // 计算俯仰角和翻滚角（以弧度为单位）
+    // 假设z轴是垂直方向（正值向上），x轴是设备宽度方向，y轴是设备前后方向
+    *pitch = atan2(-y, sqrt(x * x + z * z)); // 设备绕其y轴旋转的角度。注意：这里使用-y，因为通常z轴向上时y轴向前是负值
+    *roll = atan2(x, z);                     // 设备绕其x轴旋转的角度。
 
-    // ������ת��Ϊ��
+    // 将弧度转换为度
     *pitch = *pitch * (180 / M_PI);
     *roll = *roll * (180 / M_PI);
 }
