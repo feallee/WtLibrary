@@ -1,6 +1,6 @@
 #include "LibMealy.h"
 
-int LibMealy_Init(LibMealy_MachineType* machine, const LibMealy_TransitionType* transitionTable, uint8_t stateCount, uint8_t conditionCount)
+int LibMealy_Init(LibMealy_MachineType *machine, const LibMealy_TransitionType *transitionTable, uint8_t stateCount, uint8_t conditionCount)
 {
 	int r = 0;
 	if (machine &&
@@ -18,7 +18,7 @@ int LibMealy_Init(LibMealy_MachineType* machine, const LibMealy_TransitionType* 
 	return r;
 }
 
-int LibMealy_Start(LibMealy_MachineType* machine, uint8_t initialState, uint8_t finalState)
+int LibMealy_Start(LibMealy_MachineType *machine, uint8_t initialState, uint8_t finalState)
 {
 	int r = 0;
 	if (machine &&
@@ -32,7 +32,7 @@ int LibMealy_Start(LibMealy_MachineType* machine, uint8_t initialState, uint8_t 
 	return r;
 }
 
-void LibMealy_Stop(LibMealy_MachineType* machine)
+void LibMealy_Stop(LibMealy_MachineType *machine)
 {
 	if (machine && machine->CurrentState != machine->FinalState)
 	{
@@ -40,12 +40,12 @@ void LibMealy_Stop(LibMealy_MachineType* machine)
 	}
 }
 
-inline int LibMealy_IsFinal(LibMealy_MachineType* machine)
+inline int LibMealy_IsFinal(LibMealy_MachineType *machine)
 {
 	return machine && machine->CurrentState == machine->FinalState;
 }
 
-int LibMealy_Raise(LibMealy_MachineType* machine, uint8_t condition, void* parameter)
+int LibMealy_Raise(LibMealy_MachineType *machine, uint8_t condition, void *parameter)
 {
 	int r = 0;
 	if (!LibMealy_IsFinal(machine) &&
@@ -53,7 +53,7 @@ int LibMealy_Raise(LibMealy_MachineType* machine, uint8_t condition, void* param
 		machine->CurrentState < machine->StateCount &&
 		condition < machine->ConditionCount)
 	{
-		const LibMealy_TransitionType* st = &machine->TransitionTable[machine->CurrentState * machine->ConditionCount + condition]; // TC:O(1)
+		const LibMealy_TransitionType *st = &machine->TransitionTable[machine->CurrentState * machine->ConditionCount + condition]; // TC:O(1)
 		if (st->Next < machine->StateCount)
 		{
 			r = 1;

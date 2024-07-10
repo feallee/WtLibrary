@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "LibMealy.h"
+#include "LibMealyTest.h"
 
 static int PlayAction(uint8_t condition, void* parameter, uint8_t from, uint8_t to)
 {
@@ -21,18 +22,18 @@ static int StopAction(uint8_t condition, void* parameter, uint8_t from, uint8_t 
 
 enum
 {
-	STATE_STOP,  // Í£Ö¹×´Ì¬
-	STATE_PLAY,  // ²¥·Å×´Ì¬
-	STATE_PAUSE, // ÔÝÍ£×´Ì¬
+	STATE_STOP,  
+	STATE_PLAY,  
+	STATE_PAUSE, 
 
-	STATE_COUNT, // ×´Ì¬ÊýÁ¿£¬¹Ì¶¨Î»ÖÃÇÒÐ¡ÓÚ255
+	STATE_COUNT, 
 };
 enum
 {
-	CONDITION_PLAY_PAUSE, // ²¥·ÅÔÝÍ£¼ü
-	CONDITION_STOP,	   // Í£Ö¹¼ü
+	CONDITION_PLAY_PAUSE, 
+	CONDITION_STOP,	   
 
-	CONDITION_COUNT,	   // °´¼üÊýÁ¿£¬¹Ì¶¨Î»ÖÃÇÒÐ¡ÓÚ255
+	CONDITION_COUNT,	  
 };
 const static LibMealy_TransitionType mTable[STATE_COUNT][CONDITION_COUNT] = {
 	//            condition 0               condition 1
@@ -42,7 +43,7 @@ const static LibMealy_TransitionType mTable[STATE_COUNT][CONDITION_COUNT] = {
 	/* state 2*/ {{PlayAction, STATE_PLAY}, {StopAction, STATE_STOP}},
 };
 
-int LibMealy_Test(void)
+void LibMealyTest_Run(void)
 {
 	LibMealy_MachineType m;
 	LibMealy_Init(&m, *mTable, STATE_COUNT, CONDITION_COUNT);
@@ -65,5 +66,4 @@ int LibMealy_Test(void)
 	printf("\n");
 	LibMealy_Stop(&m);
 	printf("is final:%d\n", LibMealy_IsFinal(&m));
-	return 0;
 }

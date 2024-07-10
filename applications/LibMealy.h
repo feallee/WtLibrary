@@ -5,64 +5,67 @@
 extern "C"
 {
 #endif
-	/// @brief ×´Ì¬»ú×ªÒÆ±íÀàĞÍ¡£
+	/// @brief çŠ¶æ€æœºè½¬ç§»è¡¨ç±»å‹ã€‚
 	typedef struct
 	{
-		/// @brief ¶¯×÷¡£
-		/// @param from µ±Ç°×´Ì¬¡£
-		/// @param condition Ìõ¼ş¡£
-		/// @param to Ä¿±ê×´Ì¬¡£
-		/// @param parameter ¹ØÁª²ÎÊı¡£
-		/// @return ·µ»Ø 1 ¼ÌĞø×ª»»×´Ì¬£»0 Ç¿ÖÆÖĞÖ¹×ª»»×´Ì¬£¬²¢±£³ÖÔÚµ±Ç°×´Ì¬¡£
+		/// @brief åŠ¨ä½œã€‚
+		/// @param from å½“å‰çŠ¶æ€ã€‚
+		/// @param condition æ¡ä»¶ã€‚
+		/// @param to ç›®æ ‡çŠ¶æ€ã€‚
+		/// @param parameter å…³è”å‚æ•°ã€‚
+		/// @return è¿”å› 1 ç»§ç»­è½¬æ¢çŠ¶æ€ï¼›0 å¼ºåˆ¶ä¸­æ­¢è½¬æ¢çŠ¶æ€ï¼Œå¹¶ä¿æŒåœ¨å½“å‰çŠ¶æ€ã€‚
 		int (*Action)(uint8_t condition, void *parameter, uint8_t from, uint8_t to);
-		/// @brief ´ÎÌ¬¡£
+		/// @brief æ¬¡æ€ã€‚
 		uint8_t Next;
 	} LibMealy_TransitionType;
 
-	/// @brief ×´Ì¬»úÀàĞÍ¡£
+	/// @brief çŠ¶æ€æœºç±»å‹ã€‚
 	typedef struct
 	{
-		/// @brief µ±Ç°×´Ì¬¡£
+		/// @brief å½“å‰çŠ¶æ€ã€‚
 		uint8_t CurrentState;
-		/// @brief ×îÖÕ×´Ì¬¡£
+		/// @brief æœ€ç»ˆçŠ¶æ€ã€‚
 		uint8_t FinalState;
-		/// @brief ×´Ì¬ÊıÁ¿¡£
+		/// @brief çŠ¶æ€æ•°é‡ã€‚
 		uint8_t StateCount;
-		/// @brief Ìõ¼şÊıÁ¿¡£
+		/// @brief æ¡ä»¶æ•°é‡ã€‚
 		uint8_t ConditionCount;
-		/// @brief ×ªÒÆ±í¡£
+		/// @brief è½¬ç§»è¡¨ã€‚
 		const LibMealy_TransitionType *TransitionTable;
 	} LibMealy_MachineType;
 
-	/// @brief ³õÊ¼»¯×´Ì¬»ú¡£
-	/// @param machine ×´Ì¬»ú¡£
-	/// @param transitionTable  ×ª»»±í¡£
-	/// @param stateCount ×´Ì¬ÊıÁ¿¡£
-	/// @param conditionCount Ìõ¼şÊıÁ¿¡£
-	/// @return ·µ»Ø 1 ³É¹¦£¬0 Ê§°Ü¡£
+	/// @brief åˆå§‹åŒ–çŠ¶æ€æœºã€‚
+	/// @param machine çŠ¶æ€æœºã€‚
+	/// @param transitionTable  è½¬æ¢è¡¨ã€‚
+	/// @param stateCount çŠ¶æ€æ•°é‡ã€‚
+	/// @param conditionCount æ¡ä»¶æ•°é‡ã€‚
+	/// @return è¿”å› 1 æˆåŠŸï¼Œ0 å¤±è´¥ã€‚
 	int LibMealy_Init(LibMealy_MachineType *machine, const LibMealy_TransitionType *transitionTable, uint8_t stateCount, uint8_t conditionCount);
 
-	/// @brief Æô¶¯×´Ì¬»ú¡£
-	/// @param machine ×´Ì¬»ú¡£
-	/// @param initialState ÆğÊ¼×´Ì¬¡£
-	/// @param finalState ×îÖÕ×´Ì¬¡£
-	/// @return ·µ»Ø 1 ³É¹¦£¬0 Ê§°Ü¡£
+	/// @brief å¯åŠ¨çŠ¶æ€æœºã€‚
+	/// @param machine çŠ¶æ€æœºã€‚
+	/// @param initialState èµ·å§‹çŠ¶æ€ã€‚
+	/// @param finalState æœ€ç»ˆçŠ¶æ€ã€‚
+	/// @return è¿”å› 1 æˆåŠŸï¼Œ0 å¤±è´¥ã€‚
 	int LibMealy_Start(LibMealy_MachineType *machine, uint8_t initialState, uint8_t finalState);
 
-	/// @brief Í£Ö¹×´Ì¬»ú¡£
-	/// @param machine ×´Ì¬»ú¡£	
+	/// @brief åœæ­¢çŠ¶æ€æœºã€‚
+	/// @param machine çŠ¶æ€æœºã€‚
 	void LibMealy_Stop(LibMealy_MachineType *machine);
 
-	/// @brief ×´Ì¬»úÊÇ·ñ´¦ÓÚ×îÖÕ×´Ì¬¡£
-	/// @param machine ×´Ì¬»ú¡£
-	/// @return ·µ»Ø 1 ´¦ÓÚ×îÖÕ×´Ì¬£¬0 ´¦ÓÚ·Ç×îÖÕ×´Ì¬¡£
-	inline int LibMealy_IsFinal(LibMealy_MachineType *machine);
+	/// @brief çŠ¶æ€æœºæ˜¯å¦å¤„äºæœ€ç»ˆçŠ¶æ€ã€‚
+	/// @param machine çŠ¶æ€æœºã€‚
+	/// @return è¿”å› 1 å¤„äºæœ€ç»ˆçŠ¶æ€ï¼Œ0 å¤„äºéæœ€ç»ˆçŠ¶æ€ã€‚
+	 int LibMealy_IsFinal(LibMealy_MachineType *machine);
+	// {
+	// 	return machine && machine->CurrentState == machine->FinalState;
+	// }
 
-	/// @brief ×´Ì¬»ú×ªÒÆ¡£
-	/// @param machine ×´Ì¬»ú¡£
-	/// @param condition Ìõ¼ş¡£
-	/// @param parameter ¹ØÁª²ÎÊı¡£
-	/// @return ·µ»Ø 1 ³É¹¦£¬0 Ê§°Ü¡£
+	/// @brief çŠ¶æ€æœºè½¬ç§»ã€‚
+	/// @param machine çŠ¶æ€æœºã€‚
+	/// @param condition æ¡ä»¶ã€‚
+	/// @param parameter å…³è”å‚æ•°ã€‚
+	/// @return è¿”å› 1 æˆåŠŸï¼Œ0 å¤±è´¥ã€‚
 	int LibMealy_Raise(LibMealy_MachineType *machine, uint8_t condition, void *parameter);
 #ifdef __cplusplus
 }

@@ -1,14 +1,16 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "WtVersion.h"
-#include "WtEntryTest.h"
-#include "WtCommandTest.h"
+#include "AppVersion.h"
+#include "LibEntryTest.h"
+#include "LibCommandTest.h"
+#include "LibMealyTest.h"
 int main(void)
 {
-    printf("%s\n",WT_VERSION_FULL);
-    WtEntryTest_Run();
-    WtCommandTest_Run();
+    printf("%s\n",APP_VERSION_FULL);
+    LibEntryTest_Run();
+    LibCommandTest_Run();
+    LibMealyTest_Run();
     return 0;
 }
 
