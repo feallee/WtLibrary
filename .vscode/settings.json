@@ -11,6 +11,7 @@
     "files.associations": {
         "math.h": "c",
         "typeinfo": "cpp",
-        "libmealytest.h": "c"
+        "libmealytest.h": "c",
+        "wtbuild.h": "c"
     }
 }
