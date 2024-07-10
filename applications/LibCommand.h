@@ -71,7 +71,7 @@ typedef struct
      /// @brief 应用程序命令名称。
      char *Name;
      /// @brief 应用程序命令动作。
-     void (*Action)(int32_t sender, void *parameter);
+     void (*Action)(int sender, void *parameter);
 } LibCommand_Type;
 
 /// @brief 执行指定应用程序分组中匹配应用程序命令名称的应用程序命令动作函数。
@@ -80,6 +80,6 @@ typedef struct
 /// @param[in] sender 应用程序命令来源。
 /// @param[in] parameter 应用程序命令参数。
 /// @return 返回匹配应用程序命令名称的数量。
-extern int LibCommand_Execute(uint8_t group, const char *name, int32_t sender, void *parameter);
+extern int LibCommand_Execute(uint8_t group, const char *name, int sender, void *parameter);
 
 #endif

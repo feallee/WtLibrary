@@ -17,7 +17,7 @@ typedef struct
      /// @brief 应用程序入口分类名称。
      char *Category;
      /// @brief 应用程序入口动作函数。
-     void (*Action)(void);
+     void (*Action)(void *parameter);
 } LibEntry_Type;
 
 /// @brief 向应用程序入口级别 1 注册应用程序入口。
@@ -63,5 +63,5 @@ typedef struct
 /// @brief 执行匹配应用程序入口分类名称的动作函数（按应用程序入口级别顺序执行：1->2->3->4->5->6->7->8）。
 /// @param[in] category 应用程序入口分类名称。
 /// @return 返回匹配应用程序入口分类名称的数量。
-extern int LibEntry_Execute(const char *category);
+extern int LibEntry_Execute(const char *category, void *parameter);
 #endif

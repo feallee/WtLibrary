@@ -4,7 +4,7 @@
 LIB_ENTRY_REGISTER(0, NULL, NULL);
 LIB_ENTRY_REGISTER(9, NULL, NULL);
 
-int LibEntry_Execute(const char *category)
+int LibEntry_Execute(const char *category,void *parameter)
 {
     int cnt = 0;
     for (const LibEntry_Type *b = &mLibEntry_0_NULL + 1; b < &mLibEntry_9_NULL; b++)
@@ -17,7 +17,7 @@ int LibEntry_Execute(const char *category)
                 {
                     if (b->Action)
                     {
-                        b->Action();
+                        b->Action(parameter);
                     }
                     cnt++;
                 }
@@ -29,7 +29,7 @@ int LibEntry_Execute(const char *category)
             {
                 if (b->Action)
                 {
-                    b->Action();
+                    b->Action(parameter);
                 }
                 cnt++;
             }

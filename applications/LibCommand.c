@@ -11,7 +11,7 @@ LIB_COMMAND_REGISTER(70, NULL, NULL);
 LIB_COMMAND_REGISTER(80, NULL, NULL);
 LIB_COMMAND_REGISTER(90, NULL, NULL);
 
-int LibCommand_Execute(uint8_t group, const char *name, int32_t sender, void *parameter)
+int LibCommand_Execute(uint8_t group, const char *name, int sender, void *parameter)
 {
     int cnt = 0;
     const LibCommand_Type *b;
