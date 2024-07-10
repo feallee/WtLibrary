@@ -41,8 +41,8 @@ SECTIONS
         __rt_init_end = .;
 
         /* section entry */        
-        KEEP(*(SORT(.WtEntry.*)))
-        KEEP(*(SORT(.WtCommand.*)))
+        KEEP(*(SORT(.LibEntry.*)))
+        KEEP(*(SORT(.LibCommand.*)))
     } =0
     __text_end = .;
 
