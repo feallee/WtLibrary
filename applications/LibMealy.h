@@ -1,3 +1,12 @@
+/**
+ * @brief 有限状态机管理模块。
+ * @copyright Copyright(C) 2023 We As Top team. All rights reserved.
+ * @section 修订日志
+ * 日期         作者                内容
+ * -------------------------------------------------------------------------
+ * 2024/7/10   feallee@hotmail.com 初版。
+ */
+
 #ifndef __LIB_MEALY_H__
 #define __LIB_MEALY_H__
 #include <stdint.h>
@@ -40,23 +49,23 @@ extern "C"
 	/// @param stateCount 状态数量。
 	/// @param conditionCount 条件数量。
 	/// @return 返回 1 成功，0 失败。
-	int LibMealy_Init(LibMealy_MachineType *machine, const LibMealy_TransitionType *transitionTable, uint8_t stateCount, uint8_t conditionCount);
+	extern int LibMealy_Init(LibMealy_MachineType *machine, const LibMealy_TransitionType *transitionTable, uint8_t stateCount, uint8_t conditionCount);
 
-	/// @brief 启动状态机。
+	/// @brief 强制启动状态机。
 	/// @param machine 状态机。
 	/// @param initialState 起始状态。
 	/// @param finalState 最终状态。
 	/// @return 返回 1 成功，0 失败。
-	int LibMealy_Start(LibMealy_MachineType *machine, uint8_t initialState, uint8_t finalState);
+	extern int LibMealy_Start(LibMealy_MachineType *machine, uint8_t initialState, uint8_t finalState);
 
-	/// @brief 停止状态机。
+	/// @brief 强制停止状态机。
 	/// @param machine 状态机。
-	void LibMealy_Stop(LibMealy_MachineType *machine);
+	extern void LibMealy_Stop(LibMealy_MachineType *machine);
 
 	/// @brief 状态机是否处于最终状态。
 	/// @param machine 状态机。
 	/// @return 返回 1 处于最终状态，0 处于非最终状态。
-	 int LibMealy_IsFinal(LibMealy_MachineType *machine);
+	extern int LibMealy_IsFinal(LibMealy_MachineType *machine);
 	// {
 	// 	return machine && machine->CurrentState == machine->FinalState;
 	// }
@@ -66,7 +75,7 @@ extern "C"
 	/// @param condition 条件。
 	/// @param parameter 关联参数。
 	/// @return 返回 1 成功，0 失败。
-	int LibMealy_Raise(LibMealy_MachineType *machine, uint8_t condition, void *parameter);
+	extern int LibMealy_Raise(LibMealy_MachineType *machine, uint8_t condition, void *parameter);
 #ifdef __cplusplus
 }
 #endif

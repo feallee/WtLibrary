@@ -4,19 +4,19 @@
 
 static int PlayAction(uint8_t condition, void* parameter, uint8_t from, uint8_t to)
 {
-	printf("Need to play => Condition:%hhu,Parameter:%pH,From:%hhu,To:%hhu\n", condition, parameter, from, to);
+	printf("Need to play => Condition:%hhu,Parameter:%p,From:%hhu,To:%hhu\n", condition, parameter, from, to);
 	return 1;
 }
 
 static int PauseAction(uint8_t condition, void* parameter, uint8_t from, uint8_t to)
 {
-	printf("Need to pause => Condition:%hhu,Parameter:%pH,From:%hhu,To:%hhu\n", condition, parameter, from, to);
+	printf("Need to pause => Condition:%hhu,Parameter:%p,From:%hhu,To:%hhu\n", condition, parameter, from, to);
 	return 1;
 }
 
 static int StopAction(uint8_t condition, void* parameter, uint8_t from, uint8_t to)
 {
-	printf("Need to stop => Condition:%hhu,Parameter:%pH,From:%hhu,To:%hhu\n", condition, parameter, from, to);
+	printf("Need to stop => Condition:%hhu,Parameter:%p,From:%hhu,To:%hhu\n", condition, parameter, from, to);
 	return 1;
 }
 

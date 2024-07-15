@@ -12,6 +12,7 @@
         "math.h": "c",
         "typeinfo": "cpp",
         "libmealytest.h": "c",
-        "wtbuild.h": "c"
+        "wtbuild.h": "c",
+        "libcheck.h": "c"
     }
 }
