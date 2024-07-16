@@ -61,14 +61,14 @@ extern "C"
 	/// @brief 强制停止状态机。
 	/// @param machine 状态机。
 	extern void LibMealy_Stop(LibMealy_MachineType *machine);
-
+	
 	/// @brief 状态机是否处于最终状态。
 	/// @param machine 状态机。
 	/// @return 返回 1 处于最终状态，0 处于非最终状态。
-	extern int LibMealy_IsFinal(LibMealy_MachineType *machine);
-	// {
-	// 	return machine && machine->CurrentState == machine->FinalState;
-	// }
+	static inline int LibMealy_IsFinal(LibMealy_MachineType *machine)
+	{
+		return machine && machine->CurrentState == machine->FinalState;
+	}
 
 	/// @brief 状态机转移。
 	/// @param machine 状态机。

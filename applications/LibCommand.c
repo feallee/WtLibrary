@@ -6,10 +6,6 @@ LIB_COMMAND_REGISTER(20, NULL, NULL);
 LIB_COMMAND_REGISTER(30, NULL, NULL);
 LIB_COMMAND_REGISTER(40, NULL, NULL);
 LIB_COMMAND_REGISTER(50, NULL, NULL);
-LIB_COMMAND_REGISTER(60, NULL, NULL);
-LIB_COMMAND_REGISTER(70, NULL, NULL);
-LIB_COMMAND_REGISTER(80, NULL, NULL);
-LIB_COMMAND_REGISTER(90, NULL, NULL);
 
 int LibCommand_Execute(uint8_t group, const char *name, int sender, void *parameter)
 {
@@ -35,27 +31,7 @@ int LibCommand_Execute(uint8_t group, const char *name, int sender, void *parame
     {
         b = &mLibCommand_40_NULL;
         e = &mLibCommand_50_NULL;
-    }
-    else if (group == 5)
-    {
-        b = &mLibCommand_50_NULL;
-        e = &mLibCommand_60_NULL;
-    }
-    else if (group == 6)
-    {
-        b = &mLibCommand_60_NULL;
-        e = &mLibCommand_70_NULL;
-    }
-    else if (group == 7)
-    {
-        b = &mLibCommand_70_NULL;
-        e = &mLibCommand_80_NULL;
-    }
-    else if (group == 8)
-    {
-        b = &mLibCommand_80_NULL;
-        e = &mLibCommand_90_NULL;
-    }
+    }    
     else
     {
         b = e = NULL;
@@ -79,7 +55,6 @@ int LibCommand_Execute(uint8_t group, const char *name, int sender, void *parame
         }
         else
         {
-
             if (b->Name == NULL)
             {
                 if (b->Action)

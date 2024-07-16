@@ -32,39 +32,11 @@ static void Command4(int sender, void *parameter)
 }
 LIB_COMMAND_REGISTER4("cmd4", Command4);
 
-static void Command5(int sender, void *parameter)
-{
-    printf("command5\n");
-}
-LIB_COMMAND_REGISTER5("cmd5", Command5);
-
-static void Command6(int sender, void *parameter)
-{
-    printf("command6\n");
-}
-LIB_COMMAND_REGISTER6("cmd6", Command6);
-
-static void Command7(int sender, void *parameter)
-{
-    printf("command7\n");
-}
-LIB_COMMAND_REGISTER7("cmd7", Command7);
-
-static void Command8(int sender, void *parameter)
-{
-    printf("command8\n");
-}
-LIB_COMMAND_REGISTER8("cmd8", Command8);
 
 void LibCommandTest_Run(void)
 {
     LibCommand_Execute(1, "cmd1", 0, NULL);
     LibCommand_Execute(2, "cmd2", 0, NULL);
-
     LibCommand_Execute(3, "cmd3", 0, NULL);
     LibCommand_Execute(4, "cmd4", 0, NULL);
-    LibCommand_Execute(5, "cmd5", 0, NULL);
-    LibCommand_Execute(6, "cmd6", 0, NULL);
-    LibCommand_Execute(7, "cmd7", 0, NULL);
-    LibCommand_Execute(8, "cmd8", 0, NULL);
 }

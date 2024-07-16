@@ -1,10 +1,14 @@
 #include <math.h>
 #define M_PI 3.14159265358979323846
 
-void WtGSensor_ComputePitchRoll(double x, double y, double z, double *pitch, double *roll)
+double LibGSensor_GetNormalized(double x, double y, double z)
+{
+    return sqrt(x * x + y * y + z * z);
+}
+void LibGSensor_GetPitchRoll(double x, double y, double z, double *pitch, double *roll)
 {
     // 归一化gsensor数据（如果数据不是单位向量）
-    double norm = sqrt(x * x + y * y + z * z);
+    double norm = LibGSensor_GetNormalized(x, y, z);
     if (norm > 0.0)
     {
         x /= norm;
