@@ -41,7 +41,6 @@ if os.getenv('RTT_EXEC_PATH'):
     EXEC_PATH = os.getenv('RTT_EXEC_PATH')
 
 BUILD = 'debug'
-
 if PLATFORM == 'gcc':
     # toolchains
     PREFIX = 'arm-none-eabi-'

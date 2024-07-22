@@ -1,10 +1,9 @@
 import os
 import sys
 import rtconfig
-import subprocess 
 
-subprocess.check_call(['wtbuild','applications\\WtBuild.h','196'])
-
+import WtBuild
+WtBuild.Create('applications/WtBuild.h')
 
 if os.getenv('RTT_ROOT'):
     RTT_ROOT = os.getenv('RTT_ROOT')

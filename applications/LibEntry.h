@@ -17,7 +17,7 @@ extern "C"
      typedef struct
      {
           /// @brief 应用程序入口分类名称。
-          const char *Category;
+          char *Category;
           /// @brief 应用程序入口动作函数。
           void (*Action)(void *parameter);
      } LibEntry_Type;

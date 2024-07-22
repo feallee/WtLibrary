@@ -26,7 +26,7 @@
 /// @brief 次要版本号。如 0 to 999。// TODO
 #define APP_VERSION_MINOR 0 // WT_BUILD_VERSION_MINOR
 /// @brief 构建版本号。如 0 to 999。// TODO
-#define APP_VERSION_BUILD WT_BUILD_VERSION_BUILD
+#define APP_VERSION_BUILD WT_BUILD_NUMBER
 
 #define APP_VERSION_TO_TEXT(v) #v
 #define APP_VERSION_TO_TEXT3(a, b, c) APP_VERSION_TO_TEXT(a.b.c)

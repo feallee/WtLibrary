@@ -28,14 +28,14 @@ extern "C"
 #define LIB_COMMAND_SENDER_NONE 0x00000000
 /// @brief 应用程序命令来源为所有。
 #define LIB_COMMAND_SENDER_ALL 0xffffffff
-// TODO: 补充其他来源。
+// TODO: 补充其他来源开始。
 /// @brief 应用程序命令来源为控制台。
 #define LIB_COMMAND_SENDER_CONSOLE 0x00000001
 /// @brief 应用程序命令来源为网络。
 #define LIB_COMMAND_SENDER_NETWORK 0x00000002
 /// @brief 应用程序命令来源为短信。
 #define LIB_COMMAND_SENDER_SHORT_MESSAGE 0x00000004
-
+// TODO: 补充其他来源结束。
 /// @brief 向应用程序命令分组 1 注册应用程序命令。
 /// @param[in] name 应用程序命令名称。
 /// @param[in] action 应用程序命令动作函数。

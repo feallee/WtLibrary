@@ -9,7 +9,6 @@ int LibMealy_Init(LibMealy_MachineType *machine, const LibMealy_TransitionType *
 		conditionCount)
 	{
 		machine->CurrentState = 0;
-		machine->FinalState = 0;
 		machine->StateCount = stateCount;
 		machine->ConditionCount = conditionCount;
 		machine->TransitionTable = transitionTable;
@@ -18,46 +17,23 @@ int LibMealy_Init(LibMealy_MachineType *machine, const LibMealy_TransitionType *
 	return r;
 }
 
-int LibMealy_Start(LibMealy_MachineType *machine, uint8_t initialState, uint8_t finalState)
-{
-	int r = 0;
-	if (initialState != finalState &&
-		machine &&
-		initialState < machine->StateCount)
-	{
-		machine->CurrentState = initialState;
-		machine->FinalState = finalState;
-		r = 1;
-	}
-	return r;
-}
-
-void LibMealy_Stop(LibMealy_MachineType *machine)
-{
-	if (machine && machine->CurrentState != machine->FinalState)
-	{
-		machine->CurrentState = machine->FinalState;
-	}
-}
-
 int LibMealy_Raise(LibMealy_MachineType *machine, uint8_t condition, void *parameter)
 {
 	int r = 0;
 	if (machine &&
-		!LibMealy_IsFinal(machine) &&
-		machine->CurrentState < machine->StateCount &&
-		condition < machine->ConditionCount &&
-		machine->TransitionTable)
+		machine->TransitionTable &&
+		condition < machine->ConditionCount)
 	{
-		const LibMealy_TransitionType *st = &machine->TransitionTable[machine->CurrentState * machine->ConditionCount + condition]; // TC:O(1)
-		if (st->Next < machine->StateCount)
+		const LibMealy_TransitionType *st = &machine->TransitionTable[machine->CurrentState * machine->ConditionCount + condition]; 
+		if (st->Next > 0 &&
+			st->Next < machine->StateCount)
 		{
-			r = 1;
 			if (!st->Action ||
 				st->Action(condition, parameter, machine->CurrentState, st->Next))
 			{
 				machine->CurrentState = st->Next;
 			}
+			r = 1;
 		}
 	}
 	return r;
