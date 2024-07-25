@@ -4,13 +4,15 @@
 
 enum
 {
-	STATE_NONE = 0, // fixed
+	STATE_INITIAL = 0,			 // fixed
+	STATE_NONE = STATE_INITIAL, // fixed
 
 	STATE_STOP,
 	STATE_PLAY,
 	STATE_PAUSE,
 
-	STATE_COUNT, // fixed
+	STATE_FINAL,			  // fixed
+	STATE_COUNT = STATE_FINAL // fixed
 };
 enum
 {

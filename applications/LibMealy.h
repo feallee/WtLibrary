@@ -63,6 +63,13 @@ extern "C"
 	{
 		return machine ? machine->CurrentState : 0;
 	}
+	/// @brief 获取是否处于最终状态。
+	/// @param machine 状态机。
+	/// @return 返回是否处于最终状态。
+	static inline int LibMealy_IsFinal(LibMealy_MachineType *machine)
+	{
+		return machine ? machine->CurrentState < machine->StateCount : 0;
+	}
 #ifdef __cplusplus
 }
 #endif
