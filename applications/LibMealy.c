@@ -26,12 +26,15 @@ int LibMealy_Raise(LibMealy_MachineType *machine, uint8_t condition, void *param
 		machine->CurrentState < machine->StateCount)
 	{
 		const LibMealy_TransitionType *st = &machine->TransitionTable[machine->CurrentState * machine->ConditionCount + condition];
-		if (!st->Action ||
-			st->Action(condition, parameter, machine->CurrentState, st->Next))
+		if (st->Next)
 		{
-			machine->CurrentState = st->Next;
+			if (!st->Action ||
+				st->Action(condition, parameter, machine->CurrentState, st->Next))
+			{
+				machine->CurrentState = st->Next;
+			}
+			r = 1;
 		}
-		r = 1;
 	}
 	return r;
 }
