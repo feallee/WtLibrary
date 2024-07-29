@@ -1,6 +1,6 @@
 #ifndef __WT_BUILD_H__
 #define __WT_BUILD_H__
-#define WT_BUILD_NUMBER 40
+#define WT_BUILD_NUMBER 57
 #define WT_BUILD_YEAR_4 2
 #define WT_BUILD_YEAR_3 0
 #define WT_BUILD_YEAR_2 2
@@ -8,14 +8,14 @@
 #define WT_BUILD_MONTH_2 0
 #define WT_BUILD_MONTH_1 7
 #define WT_BUILD_DAY_2 2
-#define WT_BUILD_DAY_1 5
+#define WT_BUILD_DAY_1 9
 #define WT_BUILD_HOUR_2 1
-#define WT_BUILD_HOUR_1 7
+#define WT_BUILD_HOUR_1 6
 #define WT_BUILD_MINUTE_2 3
-#define WT_BUILD_MINUTE_1 1
+#define WT_BUILD_MINUTE_1 6
 #define WT_BUILD_SECOND_2 3
-#define WT_BUILD_SECOND_1 2
-#define WT_BUILD_MILLISECOND_3 1
-#define WT_BUILD_MILLISECOND_2 0
-#define WT_BUILD_MILLISECOND_1 0
+#define WT_BUILD_SECOND_1 7
+#define WT_BUILD_MILLISECOND_3 2
+#define WT_BUILD_MILLISECOND_2 9
+#define WT_BUILD_MILLISECOND_1 7
 #endif

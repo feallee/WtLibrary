@@ -4,7 +4,7 @@
 
 enum
 {
-	STATE_INITIAL = 0,			 // fixed
+	STATE_INITIAL = 0,			// fixed
 	STATE_NONE = STATE_INITIAL, // fixed
 
 	STATE_STOP,
@@ -50,8 +50,8 @@ static int StopAction(uint8_t condition, void *parameter, uint8_t from, uint8_t 
 const static LibMealy_TransitionType mTable[STATE_COUNT][KEY_COUNT] = {
 	//                  KEY_PLAY_PAUSE               KEY_STOP
 	//----------------------------------------------------------------
-	/* STATE_INITIAL */ {{NULL, STATE_STOP}, {NULL, STATE_STOP}}, // fixed
-	/* STATE_STOP    */ {{PlayAction, STATE_PLAY}, {NULL, STATE_NONE}},
+	/* STATE_INITIAL */ {{NULL, STATE_NONE}, {NULL, STATE_STOP}}, // fixed
+	/* STATE_STOP    */ {{PlayAction, STATE_PLAY}},
 	/* STATE_PLAY    */ {{PauseAction, STATE_PAUSE}, {StopAction, STATE_STOP}},
 	/* STATE_PAUSE   */ {{PlayAction, STATE_PLAY}, {StopAction, STATE_STOP}},
 };
