@@ -125,6 +125,10 @@ static const LibMealy_TransitionType _Table[APPLICATION_STATE_COUNT][APPLICATION
     /* APPLICATION_STATE_SLEEPING*/ {{NULL, APPLICATION_STATE_NONE}, {OnWakeup, APPLICATION_STATE_WORKING}},
 };
 
+__attribute__((weak)) void Application_OnStartup(void *parameter)
+{
+}
+
 __attribute__((weak)) void Application_OnReady(void *parameter)
 {
 }
@@ -144,6 +148,7 @@ int Application_Run(void *paramater)
     int r = 0;
     if ((_Machine = LibMealy_Create((LibMealy_TransitionType *)(*_Table), APPLICATION_STATE_COUNT, APPLICATION_EVENT_COUNT)))
     {
+        Application_OnStartup(paramater);
         if ((r = Application_Raise(APPLICATION_EVENT_FORWARD, paramater)))
         {
             Application_OnReady(paramater);

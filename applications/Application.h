@@ -295,8 +295,12 @@ extern "C"
 	/// @brief 在当前线程运行应用程序消息循环。
 	int Application_Run(void *paramater);
 
+	/// @brief 应用程序启动函数。
+	void Application_OnStartup(void *parameter);
+
 	/// @brief 应用程序准备就绪函数。
 	void Application_OnReady(void *parameter);
+
 
 #ifdef __cplusplus
 }
