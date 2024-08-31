@@ -1,40 +1,66 @@
+#include <stdlib.h>
 #include "LibMealy.h"
 
-int LibMealy_Init(LibMealy_MachineType *machine, const LibMealy_TransitionType *transitionTable, uint8_t stateCount, uint8_t conditionCount)
+typedef struct
 {
-	int r = 0;
-	if (machine &&
-		transitionTable &&
-		stateCount &&
-		conditionCount)
+	uint32_t Current;
+	uint32_t StateCount;
+	uint32_t EventCount;
+	LibMealy_TransitionType *Table;
+} MachineType;
+
+LibMealy_MachineType LibMealy_Create(LibMealy_TransitionType *transitionTable, uint32_t stateCount, uint32_t eventCount)
+{
+	MachineType *machine = NULL;
+	if (transitionTable && stateCount && eventCount)
 	{
-		machine->CurrentState = 0;
-		machine->StateCount = stateCount;
-		machine->ConditionCount = conditionCount;
-		machine->TransitionTable = transitionTable;
-		r = 1;
+		if ((machine = malloc(sizeof(MachineType))))
+		{
+			machine->Current = 0;
+			machine->StateCount = stateCount;
+			machine->EventCount = eventCount;
+			machine->Table = transitionTable;
+		}
+	}
+	return machine;
+}
+
+void LibMealy_Delete(LibMealy_MachineType machine)
+{
+	free(machine);
+	machine = NULL;
+}
+
+bool LibMealy_Raise(LibMealy_MachineType machine, uint32_t event, void *parameter)
+{
+	bool r = false;
+	if (machine)
+	{
+		MachineType *m = machine;
+		if (m->Current < m->StateCount && event < m->EventCount)
+		{
+			const LibMealy_TransitionType *st = m->Table + m->Current * m->EventCount + event;
+			if (st->Next)
+			{
+				if (!st->Action ||
+					st->Action(event, parameter, m->Current, st->Next))
+				{
+					m->Current = st->Next;
+				}
+				r = true;
+			}
+		}
 	}
 	return r;
 }
 
-int LibMealy_Raise(LibMealy_MachineType *machine, uint8_t condition, void *parameter)
+uint32_t LibMealy_GetState(LibMealy_MachineType machine)
 {
-	int r = 0;
-	if (machine &&
-		machine->TransitionTable &&
-		condition < machine->ConditionCount &&
-		machine->CurrentState < machine->StateCount)
+	uint32_t r = LIB_MEALY_STATE_UNKNOWN;
+	if (machine)
 	{
-		const LibMealy_TransitionType *st = machine->TransitionTable + machine->CurrentState * machine->ConditionCount + condition;
-		if (st->Next)
-		{
-			if (!st->Action ||
-				st->Action(condition, parameter, machine->CurrentState, st->Next))
-			{
-				machine->CurrentState = st->Next;
-			}
-			r = 1;
-		}
+		MachineType *m = machine;
+		r = m->Current;
 	}
 	return r;
 }

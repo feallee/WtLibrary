@@ -16,6 +16,10 @@
         "libcheck.h": "c",
         "compare": "cpp",
         "limits": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "libmealy.h": "c",
+        "appconfig.h": "c",
+        "application.h": "c",
+        "stddef.h": "c"
     }
 }
