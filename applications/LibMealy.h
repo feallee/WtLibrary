@@ -22,11 +22,11 @@ extern "C"
 	typedef struct
 	{
 		/// @brief 动作。
-		/// @param from 当前状态。
 		/// @param event 事件。
-		/// @param to 目标状态。
-		/// @param parameter 关联参数。
-		/// @return 返回 true 继续转换状态；false 强制中止转换状态，并保持在当前状态。
+		/// @param parameter 事件关联参数。
+		/// @param from 当前状态。		
+		/// @param to 目标状态。		
+		/// @return 返回是否继续转换状态。true 继续转换状态，false 强制中止转换状态，并保持在当前状态。
 		bool (*Action)(uint32_t event, void *parameter, uint32_t from, uint32_t to);
 		/// @brief 次态。
 		uint32_t Next;
@@ -40,7 +40,7 @@ extern "C"
 	/// @param stateCount 转换表中状态数量。
 	/// @param eventCount 转换表中事件数量。
 	/// @return 返回新的状态机实例。如果创建失败，返回 NULL。
-	LibMealy_MachineType LibMealy_Create(LibMealy_TransitionType *transitionTable, uint32_t stateCount, uint32_t eventCount);
+	LibMealy_MachineType LibMealy_Create(const LibMealy_TransitionType *transitionTable, uint32_t stateCount, uint32_t eventCount);
 
 	/// @brief 删除状态机实例。
 	/// @param machine 状态机实例。

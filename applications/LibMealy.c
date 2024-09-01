@@ -6,10 +6,10 @@ typedef struct
 	uint32_t Current;
 	uint32_t StateCount;
 	uint32_t EventCount;
-	LibMealy_TransitionType *Table;
+	const LibMealy_TransitionType *Table;
 } MachineType;
 
-LibMealy_MachineType LibMealy_Create(LibMealy_TransitionType *transitionTable, uint32_t stateCount, uint32_t eventCount)
+LibMealy_MachineType LibMealy_Create(const LibMealy_TransitionType *transitionTable, uint32_t stateCount, uint32_t eventCount)
 {
 	MachineType *machine = NULL;
 	if (transitionTable && stateCount && eventCount)

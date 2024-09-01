@@ -125,6 +125,17 @@ static const LibMealy_TransitionType _Table[APPLICATION_STATE_COUNT][APPLICATION
     /* APPLICATION_STATE_SLEEPING*/ {{NULL, APPLICATION_STATE_NONE}, {OnWakeup, APPLICATION_STATE_WORKING}},
 };
 
+static LibMealy_MachineType _Machine = NULL;
+int Application_Raise(Application_EventType event, void *parameter)
+{
+    return LibMealy_Raise(_Machine, event, parameter);
+}
+
+Application_StateType Application_GetState(void)
+{
+    return LibMealy_GetState(_Machine);
+}
+
 __attribute__((weak)) void Application_OnStartup(void *parameter)
 {
 }
@@ -133,26 +144,14 @@ __attribute__((weak)) void Application_OnReady(void *parameter)
 {
 }
 
-static LibMealy_MachineType _Machine = NULL;
-int Application_Raise(Application_EventType event, void *paramater)
-{
-    return LibMealy_Raise(_Machine, event, paramater);
-}
-Application_StateType Application_GetState(void)
-{
-    return LibMealy_GetState(_Machine);
-}
-
-int Application_Run(void *paramater)
+int Application_Run(void *parameter)
 {
     int r = 0;
-    if ((_Machine = LibMealy_Create((LibMealy_TransitionType *)(*_Table), APPLICATION_STATE_COUNT, APPLICATION_EVENT_COUNT)))
+    if ((_Machine = LibMealy_Create(*_Table, APPLICATION_STATE_COUNT, APPLICATION_EVENT_COUNT)))
     {
-        Application_OnStartup(paramater);
-        if ((r = Application_Raise(APPLICATION_EVENT_FORWARD, paramater)))
-        {
-            Application_OnReady(paramater);
-        }
+        Application_OnStartup(parameter);
+        r = Application_Raise(APPLICATION_EVENT_FORWARD, parameter);
+        Application_OnReady(parameter);
     }
     LibMealy_Delete(_Machine);
     return r;

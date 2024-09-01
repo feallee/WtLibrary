@@ -35,6 +35,7 @@ extern "C"
 /*应用程序版本*/
 #define _APPLICATION_VERSION_TO_TEXT(A) #A
 #define _APPLICATION_VERSION_TO_TEXT4(A, B, C, D) _APPLICATION_VERSION_TO_TEXT(A.B.C.D)
+#define _APPLICATION_VERSION_TO_TEXT3(A, B, C) _APPLICATION_VERSION_TO_TEXT(A.B.C)
 #define _APPLICATION_VERSION_TO_TEXT1(A) _APPLICATION_VERSION_TO_TEXT(A)
 
 #if APP_CONFIG_PRODUCT_NAME_CURRENT == APP_CONFIG_PRODUCT_NAME_FL500
@@ -78,8 +79,6 @@ extern "C"
 #endif
 
 #define _APPLICATION_VERSION_DATE                   \
-	_APPLICATION_VERSION_TO_TEXT1(WT_BUILD_YEAR_4)  \
-	_APPLICATION_VERSION_TO_TEXT1(WT_BUILD_YEAR_3)  \
 	_APPLICATION_VERSION_TO_TEXT1(WT_BUILD_YEAR_2)  \
 	_APPLICATION_VERSION_TO_TEXT1(WT_BUILD_YEAR_1)  \
 	_APPLICATION_VERSION_TO_TEXT1(WT_BUILD_MONTH_2) \
@@ -92,7 +91,7 @@ extern "C"
 /// @brief 应用程序版本完整字符串。
 #define APPLICATION_VERSION_FULL _APPLICATION_VERSION_TO_PRODUCT_NAME "_" _APPLICATION_VERSION_DATE "_" _APPLICATION_CONFIG_CUSTOMER_NAME "_" _APPLICATION_CONFIG_FUNCTION_NAME "_" _APPLICATION_CONFIG_PROTOCOL_NAME "_" APPLICATION_VERSION_TINY
 /// @brief 应用程序版本号。
-#define APPLICATION_VERSION_NUMBER (APP_CONFIG_VERSION_MAJOR << 24 | APP_CONFIG_VERSION_MINOR << 16 | APP_CONFIG_VERSION_REVISION << 8 | WT_BUILD_NUMBER)
+#define APPLICATION_VERSION_NUMBER (APP_CONFIG_VERSION_MAJOR << 24 | APP_CONFIG_VERSION_MINOR << 16 | APP_CONFIG_VERSION_REVISION << 8 | WT_BUILD_NUMBER % 256)
 
 	/*应用程序命令*/
 	/// @brief 应用程序命令来源类型。
@@ -201,8 +200,8 @@ extern "C"
 	typedef struct
 	{
 		/// @brief 应用程序入口函数。
-		/// @param[in,out] paramater 应用程序入口函数关联参数。
-		void (*Action)(void *paramater);
+		/// @param[in,out] parameter 应用程序入口函数关联参数。
+		void (*Action)(void *parameter);
 		Application_EntryProcedureType Procedure;
 	} _Application_EntryType;
 
@@ -285,22 +284,15 @@ extern "C"
 
 	/// @brief 向应用程序引发事件。
 	/// @param[in] event 应用程序事件。
-	/// @param[in,out] paramater 应用程序事件关联参数。
+	/// @param[in,out] parameter 应用程序事件关联参数。
 	/// @return 返回成功引发的事件数量。
-	int Application_Raise(Application_EventType event, void *paramater);
+	int Application_Raise(Application_EventType event, void *parameter);
 
 	/// @brief 获取应用程序当前状态。
 	Application_StateType Application_GetState(void);
 
 	/// @brief 在当前线程运行应用程序消息循环。
-	int Application_Run(void *paramater);
-
-	/// @brief 应用程序启动函数。
-	void Application_OnStartup(void *parameter);
-
-	/// @brief 应用程序准备就绪函数。
-	void Application_OnReady(void *parameter);
-
+	int Application_Run(void *parameter);
 
 #ifdef __cplusplus
 }
