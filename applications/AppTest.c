@@ -32,8 +32,8 @@ static void OnCommand4(Application_CommandSenderType sender, void *parameter)
 APPLICATION_REGISTER_COMMAND_4(OnCommand4, "cmd4");
 
 static void OnLoad1(void *parameter)
-{ 
-    printf("AppTest is loaded1\n"); 
+{
+    printf("AppTest is loaded1\n");
 }
 APPLICATION_REGISTER_ENTRY_1(OnLoad1, APPLICATION_ENTRY_PROCEDURE_LOAD);
 
@@ -277,7 +277,7 @@ static void OnStartup(void *parameter)
     printf("Load application settings here.\n");
     printf("%u,%s,%s\n", APPLICATION_VERSION_NUMBER, APPLICATION_VERSION_TINY, APPLICATION_VERSION_FULL);
 }
-APPLICATION_REGISTER_ENTRY_1(OnStartup,APPLICATION_ENTRY_ON_STARTUP);
+APPLICATION_REGISTER_ENTRY_1(OnStartup, APPLICATION_ENTRY_PROCEDURE_ON_STARTUP);
 
 static void OnReady(void *parameter)
 {
@@ -293,4 +293,4 @@ static void OnReady(void *parameter)
     Application_Raise(APPLICATION_EVENT_BACK, parameter);
     Application_Raise(APPLICATION_EVENT_BACK, parameter);
 }
-APPLICATION_REGISTER_ENTRY_1(OnReady,APPLICATION_ENTRY_ON_READY);
+APPLICATION_REGISTER_ENTRY_1(OnReady, APPLICATION_ENTRY_PROCEDURE_ON_READY);

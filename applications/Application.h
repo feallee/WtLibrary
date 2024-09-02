@@ -186,11 +186,11 @@ extern "C"
 	typedef enum
 	{
 		/// @brief 应用程序入口加载前过程。
-		APPLICATION_ENTRY_ON_STARTUP ,
+		APPLICATION_ENTRY_PROCEDURE_ON_STARTUP,
 		/// @brief 应用程序入口加载过程。
 		APPLICATION_ENTRY_PROCEDURE_LOAD,
 		/// @brief 应用程序入口准备就绪过程。
-		APPLICATION_ENTRY_ON_READY,
+		APPLICATION_ENTRY_PROCEDURE_ON_READY,
 		/// @brief 应用程序工作过程。
 		APPLICATION_ENTRY_PROCEDURE_WORK,
 		/// @brief 应用程序自检过程。

@@ -140,10 +140,10 @@ int Application_Run(void *parameter)
 {
     int r = 0;
     if ((_Machine = LibMealy_Create(*_Table, APPLICATION_STATE_COUNT, APPLICATION_EVENT_COUNT)))
-    { 
-        ExecuteProcedure(APPLICATION_ENTRY_ON_STARTUP,parameter);        
+    {
+        ExecuteProcedure(APPLICATION_ENTRY_PROCEDURE_ON_STARTUP, parameter);
         r = Application_Raise(APPLICATION_EVENT_FORWARD, parameter);
-        ExecuteProcedure(APPLICATION_ENTRY_ON_READY,parameter);
+        ExecuteProcedure(APPLICATION_ENTRY_PROCEDURE_ON_READY, parameter);
     }
     LibMealy_Delete(_Machine);
     return r;
