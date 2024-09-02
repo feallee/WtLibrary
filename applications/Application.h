@@ -85,13 +85,20 @@ extern "C"
 	_APPLICATION_VERSION_TO_TEXT1(WT_BUILD_MONTH_1) \
 	_APPLICATION_VERSION_TO_TEXT1(WT_BUILD_DAY_2)   \
 	_APPLICATION_VERSION_TO_TEXT1(WT_BUILD_DAY_1)
+#define _APPLICATION_VERSION_TIME                    \
+	_APPLICATION_VERSION_TO_TEXT1(WT_BUILD_HOUR_2)   \
+	_APPLICATION_VERSION_TO_TEXT1(WT_BUILD_HOUR_1)   \
+	_APPLICATION_VERSION_TO_TEXT1(WT_BUILD_MINUTE_2) \
+	_APPLICATION_VERSION_TO_TEXT1(WT_BUILD_MINUTE_1) \
+	_APPLICATION_VERSION_TO_TEXT1(WT_BUILD_SECOND_2) \
+	_APPLICATION_VERSION_TO_TEXT1(WT_BUILD_SECOND_1)
 
 /// @brief 应用程序版本精简字符串。
 #define APPLICATION_VERSION_TINY "V" _APPLICATION_VERSION_TO_TEXT4(APP_CONFIG_VERSION_MAJOR, APP_CONFIG_VERSION_MINOR, APP_CONFIG_VERSION_REVISION, WT_BUILD_NUMBER)
 /// @brief 应用程序版本完整字符串。
-#define APPLICATION_VERSION_FULL _APPLICATION_VERSION_TO_PRODUCT_NAME "_" _APPLICATION_VERSION_DATE "_" _APPLICATION_CONFIG_CUSTOMER_NAME "_" _APPLICATION_CONFIG_FUNCTION_NAME "_" _APPLICATION_CONFIG_PROTOCOL_NAME "_" APPLICATION_VERSION_TINY
+#define APPLICATION_VERSION_FULL _APPLICATION_VERSION_TO_PRODUCT_NAME "_" _APPLICATION_VERSION_DATE "_" _APPLICATION_VERSION_TIME "_" _APPLICATION_CONFIG_CUSTOMER_NAME "_" _APPLICATION_CONFIG_FUNCTION_NAME "_" _APPLICATION_CONFIG_PROTOCOL_NAME "_" APPLICATION_VERSION_TINY
 /// @brief 应用程序版本号。
-#define APPLICATION_VERSION_NUMBER (APP_CONFIG_VERSION_MAJOR << 24 | APP_CONFIG_VERSION_MINOR << 16 | APP_CONFIG_VERSION_REVISION << 8 | WT_BUILD_NUMBER % 256)
+#define APPLICATION_VERSION_NUMBER (APP_CONFIG_VERSION_MAJOR << 24 | APP_CONFIG_VERSION_MINOR << 16 | APP_CONFIG_VERSION_REVISION << 8)
 
 	/*应用程序命令*/
 	/// @brief 应用程序命令来源类型。
@@ -159,7 +166,7 @@ extern "C"
 	 * ********************************************************
 	 *                          ( )
 	 *                           |
-	 *      GO FORWARD EVENT(ON STARTUP,LOAD,ON READY)
+	 *                GO FORWARD EVENT(LOAD)
 	 *                           |
 	 *                           v
 	 *                +---------------------+
@@ -182,15 +189,11 @@ extern "C"
 	 *
 	 * Powered by feallee@hotmail.com on 2024/7/18.
 	 */
-	
+
 	typedef enum
 	{
-		/// @brief 应用程序入口加载过程(前)。
-		APPLICATION_ENTRY_PROCEDURE_ON_STARTUP,
 		/// @brief 应用程序入口加载过程。
 		APPLICATION_ENTRY_PROCEDURE_LOAD,
-		/// @brief 应用程序入口加载过程(后)。
-		APPLICATION_ENTRY_PROCEDURE_ON_READY,
 		/// @brief 应用程序工作过程。
 		APPLICATION_ENTRY_PROCEDURE_WORK,
 		/// @brief 应用程序自检过程。
@@ -214,42 +217,42 @@ extern "C"
 	const static _Application_EntryType _ApplicationEntry_##action##_##level = {action, procedure}
 
 /// @brief 注册应用程序过程函数(优先级 1)，执行顺序按优先级：1->2->3->4->5->6->7->8。
-/// @param[in] action 应用程序过程函数。
+/// @param[in] action 应用程序过程函数。注意：函数中禁止调用函数 Application_Raise。
 /// @param[in] procedure 应用程序过程。
 #define APPLICATION_REGISTER_ENTRY_1(action, procedure) _APPLICATION_REGISTER_ENTRY(action, procedure, 1)
 
 /// @brief 注册应用程序过程函数(优先级 2)，执行顺序按优先级：1->2->3->4->5->6->7->8。
-/// @param[in] action 应用程序过程函数。
+/// @param[in] action 应用程序过程函数。注意：函数中禁止调用函数 Application_Raise。
 /// @param[in] procedure 应用程序过程。
 #define APPLICATION_REGISTER_ENTRY_2(action, procedure) _APPLICATION_REGISTER_ENTRY(action, procedure, 2)
 
 /// @brief 注册应用程序过程函数(优先级 3)，执行顺序按优先级：1->2->3->4->5->6->7->8。
-/// @param[in] action 应用程序过程函数。
+/// @param[in] action 应用程序过程函数。注意：函数中禁止调用函数 Application_Raise。
 /// @param[in] procedure 应用程序过程。
 #define APPLICATION_REGISTER_ENTRY_3(action, procedure) _APPLICATION_REGISTER_ENTRY(action, procedure, 3)
 
 /// @brief 注册应用程序过程函数(优先级 4)，执行顺序按优先级：1->2->3->4->5->6->7->8。
-/// @param[in] action 应用程序过程函数。
+/// @param[in] action 应用程序过程函数。注意：函数中禁止调用函数 Application_Raise。
 /// @param[in] procedure 应用程序过程。
 #define APPLICATION_REGISTER_ENTRY_4(action, procedure) _APPLICATION_REGISTER_ENTRY(action, procedure, 4)
 
 /// @brief 注册应用程序过程函数(优先级 5)，执行顺序按优先级：1->2->3->4->5->6->7->8。
-/// @param[in] action 应用程序过程函数。
+/// @param[in] action 应用程序过程函数。注意：函数中禁止调用函数 Application_Raise。
 /// @param[in] procedure 应用程序过程。
 #define APPLICATION_REGISTER_ENTRY_5(action, procedure) _APPLICATION_REGISTER_ENTRY(action, procedure, 5)
 
 /// @brief 注册应用程序过程函数(优先级 6)，执行顺序按优先级：1->2->3->4->5->6->7->8。
-/// @param[in] action 应用程序过程函数。
+/// @param[in] action 应用程序过程函数。注意：函数中禁止调用函数 Application_Raise。
 /// @param[in] procedure 应用程序过程。
 #define APPLICATION_REGISTER_ENTRY_6(action, procedure) _APPLICATION_REGISTER_ENTRY(action, procedure, 6)
 
 /// @brief 注册应用程序过程函数(优先级 7)，执行顺序按优先级：1->2->3->4->5->6->7->8。
-/// @param[in] action 应用程序过程函数。
+/// @param[in] action 应用程序过程函数。注意：函数中禁止调用函数 Application_Raise。
 /// @param[in] procedure 应用程序过程。
 #define APPLICATION_REGISTER_ENTRY_7(action, procedure) _APPLICATION_REGISTER_ENTRY(action, procedure, 7)
 
 /// @brief 注册应用程序过程函数(优先级 8)，执行顺序按优先级：1->2->3->4->5->6->7->8。
-/// @param[in] action 应用程序过程函数。
+/// @param[in] action 应用程序过程函数。注意：函数中禁止调用函数 Application_Raise。
 /// @param[in] procedure 应用程序过程。
 #define APPLICATION_REGISTER_ENTRY_8(action, procedure) _APPLICATION_REGISTER_ENTRY(action, procedure, 8)
 
@@ -293,9 +296,12 @@ extern "C"
 	int Application_Raise(Application_EventType event, void *parameter);
 
 	/// @brief 获取应用程序当前状态。
+	/// @return 返回应用程序当前状态。
 	Application_StateType Application_GetState(void);
 
 	/// @brief 在当前线程运行应用程序消息循环。
+	/// @param[in,out] parameter 应用程序消息循环关联参数。
+	/// @return 返回应用程序退出状态。
 	int Application_Run(void *parameter);
 
 #ifdef __cplusplus

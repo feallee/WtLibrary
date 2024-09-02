@@ -32,7 +32,15 @@ static void OnCommand4(Application_CommandSenderType sender, void *parameter)
 APPLICATION_REGISTER_COMMAND_4(OnCommand4, "cmd4");
 
 static void OnLoad1(void *parameter)
-{
+{    
+    printf("Initialize the console here.\n");
+    printf("Load application settings here.\n");
+    printf("%u,%s,%s\n", APPLICATION_VERSION_NUMBER, APPLICATION_VERSION_TINY, APPLICATION_VERSION_FULL);
+    Application_Execute(1, "cmd11", APPLICATION_COMMAND_SENDER_CONSOLE, NULL);
+    Application_Execute(1, "cmd12", APPLICATION_COMMAND_SENDER_CONSOLE, NULL);
+    Application_Execute(2, "cmd2", APPLICATION_COMMAND_SENDER_CONSOLE, NULL);
+    Application_Execute(3, "cmd3", APPLICATION_COMMAND_SENDER_CONSOLE, NULL);
+    Application_Execute(4, "cmd4", APPLICATION_COMMAND_SENDER_CONSOLE, NULL);
     printf("AppTest is loaded1\n");
 }
 APPLICATION_REGISTER_ENTRY_1(OnLoad1, APPLICATION_ENTRY_PROCEDURE_LOAD);
@@ -270,27 +278,3 @@ static void OnSLEEP8(void *parameter)
     printf("AppTest is SLEEPed8\n");
 }
 APPLICATION_REGISTER_ENTRY_8(OnSLEEP8, APPLICATION_ENTRY_PROCEDURE_SLEEP);
-
-static void OnStartup(void *parameter)
-{
-    printf("Initialize the console here.\n");
-    printf("Load application settings here.\n");
-    printf("%u,%s,%s\n", APPLICATION_VERSION_NUMBER, APPLICATION_VERSION_TINY, APPLICATION_VERSION_FULL);
-}
-APPLICATION_REGISTER_ENTRY_1(OnStartup, APPLICATION_ENTRY_PROCEDURE_ON_STARTUP);
-
-static void OnReady(void *parameter)
-{
-    printf("Start task scheduling here.\n");
-    Application_Execute(1, "cmd11", APPLICATION_COMMAND_SENDER_CONSOLE, NULL);
-    Application_Execute(1, "cmd12", APPLICATION_COMMAND_SENDER_CONSOLE, NULL);
-    Application_Execute(2, "cmd2", APPLICATION_COMMAND_SENDER_CONSOLE, NULL);
-    Application_Execute(3, "cmd3", APPLICATION_COMMAND_SENDER_CONSOLE, NULL);
-    Application_Execute(4, "cmd4", APPLICATION_COMMAND_SENDER_CONSOLE, NULL);
-    Application_Raise(APPLICATION_EVENT_FORWARD, parameter);
-    Application_Raise(APPLICATION_EVENT_FORWARD, parameter);
-    Application_Raise(APPLICATION_EVENT_FORWARD, parameter);
-    Application_Raise(APPLICATION_EVENT_BACK, parameter);
-    Application_Raise(APPLICATION_EVENT_BACK, parameter);
-}
-APPLICATION_REGISTER_ENTRY_1(OnReady, APPLICATION_ENTRY_PROCEDURE_ON_READY);
