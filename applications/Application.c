@@ -136,22 +136,14 @@ Application_StateType Application_GetState(void)
     return LibMealy_GetState(_Machine);
 }
 
-__attribute__((weak)) void Application_OnStartup(void *parameter)
-{
-}
-
-__attribute__((weak)) void Application_OnReady(void *parameter)
-{
-}
-
 int Application_Run(void *parameter)
 {
     int r = 0;
     if ((_Machine = LibMealy_Create(*_Table, APPLICATION_STATE_COUNT, APPLICATION_EVENT_COUNT)))
-    {
-        Application_OnStartup(parameter);
+    { 
+        ExecuteProcedure(APPLICATION_ENTRY_ON_STARTUP,parameter);        
         r = Application_Raise(APPLICATION_EVENT_FORWARD, parameter);
-        Application_OnReady(parameter);
+        ExecuteProcedure(APPLICATION_ENTRY_ON_READY,parameter);
     }
     LibMealy_Delete(_Machine);
     return r;
