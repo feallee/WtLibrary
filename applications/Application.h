@@ -182,14 +182,14 @@ extern "C"
 	 *
 	 * Powered by feallee@hotmail.com on 2024/7/18.
 	 */
-	/// @brief 应用程序入口过程类型。
+	
 	typedef enum
 	{
-		/// @brief 应用程序入口加载前过程。
+		/// @brief 应用程序入口加载过程(前)。
 		APPLICATION_ENTRY_PROCEDURE_ON_STARTUP,
 		/// @brief 应用程序入口加载过程。
 		APPLICATION_ENTRY_PROCEDURE_LOAD,
-		/// @brief 应用程序入口准备就绪过程。
+		/// @brief 应用程序入口加载过程(后)。
 		APPLICATION_ENTRY_PROCEDURE_ON_READY,
 		/// @brief 应用程序工作过程。
 		APPLICATION_ENTRY_PROCEDURE_WORK,
@@ -199,14 +199,14 @@ extern "C"
 		APPLICATION_ENTRY_PROCEDURE_WAKEUP,
 		/// @brief 应用程序休眠过程。
 		APPLICATION_ENTRY_PROCEDURE_SLEEP,
-	} Application_EntryProcedureType;
+	} _Application_EntryProcedureType;
 
 	typedef struct
 	{
 		/// @brief 应用程序入口函数。
 		/// @param[in,out] parameter 应用程序入口函数关联参数。
 		void (*Action)(void *parameter);
-		Application_EntryProcedureType Procedure;
+		_Application_EntryProcedureType Procedure;
 	} _Application_EntryType;
 
 #define _APPLICATION_REGISTER_ENTRY(action, procedure, level)       \

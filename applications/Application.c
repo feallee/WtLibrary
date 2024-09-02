@@ -69,7 +69,7 @@ int Application_Execute(uint8_t group, const char *name, Application_CommandSend
 
 _APPLICATION_REGISTER_ENTRY(NULL, 0, 0);
 _APPLICATION_REGISTER_ENTRY(NULL, 0, 9);
-static int ExecuteProcedure(Application_EntryProcedureType procedure, void *parameter)
+static int ExecuteProcedure(_Application_EntryProcedureType procedure, void *parameter)
 {
     int cnt = 0;
     for (const _Application_EntryType *b = &_ApplicationEntry_NULL_0 + 1; b < &_ApplicationEntry_NULL_9; b++)
