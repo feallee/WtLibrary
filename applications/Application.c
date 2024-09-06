@@ -117,16 +117,23 @@ static bool OnWakeup(uint32_t event, void *parameter, uint32_t from, uint32_t to
 }
 
 static const LibMealy_TransitionType _Table[APPLICATION_STATE_COUNT][APPLICATION_EVENT_COUNT] = {
-    //                               APPLICATION_EVENT_FORWARD               APPLICATION_EVENT_BACK
-    //----------------------------------------------------------------
-    /* APPLICATION_STATE_INITIAL */ {{OnLoad, APPLICATION_STATE_CHECKING}},
-    /* APPLICATION_STATE_CHECKING*/ {{OnWork, APPLICATION_STATE_WORKING}},
-    /* APPLICATION_STATE_WORKING */ {{OnSleep, APPLICATION_STATE_SLEEPING}, {OnCheck, APPLICATION_STATE_CHECKING}},
-    /* APPLICATION_STATE_SLEEPING*/ {{NULL, APPLICATION_STATE_NONE}, {OnWakeup, APPLICATION_STATE_WORKING}},
+    [APPLICATION_STATE_INITIAL] = {
+        [APPLICATION_EVENT_FORWARD] = {OnLoad, APPLICATION_STATE_CHECKING},
+    },
+    [APPLICATION_STATE_CHECKING] = {
+        [APPLICATION_EVENT_FORWARD] = {OnWork, APPLICATION_STATE_WORKING},
+    },
+    [APPLICATION_STATE_WORKING] = {
+        [APPLICATION_EVENT_FORWARD] = {OnSleep, APPLICATION_STATE_SLEEPING},
+        [APPLICATION_EVENT_BACK] = {OnCheck, APPLICATION_STATE_CHECKING},
+    },
+    [APPLICATION_STATE_SLEEPING] = {
+        [APPLICATION_EVENT_BACK] = {OnWakeup, APPLICATION_STATE_WORKING},
+    },
 };
 
 static LibMealy_MachineType _Machine = NULL;
-int Application_Raise(Application_EventType event, void *parameter)
+bool Application_Raise(Application_EventType event, void *parameter)
 {
     return LibMealy_Raise(_Machine, event, parameter);
 }
@@ -138,12 +145,11 @@ Application_StateType Application_GetState(void)
 
 int Application_Run(void *parameter)
 {
-    int r = 0;
     if ((_Machine = LibMealy_Create(*_Table, APPLICATION_STATE_COUNT, APPLICATION_EVENT_COUNT)))
     {
-        r = Application_Raise(APPLICATION_EVENT_FORWARD, parameter);
-        //vTaskStartScheduler();
+        Application_Raise(APPLICATION_EVENT_FORWARD, parameter);
+        // vTaskStartScheduler();
+        LibMealy_Delete(_Machine);
     }
-    LibMealy_Delete(_Machine);
-    return r;
+    return 0;
 }
